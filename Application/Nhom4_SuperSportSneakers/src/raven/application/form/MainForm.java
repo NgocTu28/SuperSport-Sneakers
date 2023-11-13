@@ -19,6 +19,7 @@ import raven.application.Application;
 import raven.application.form.other.Form_SanPham;
 import raven.application.form.other.FormInbox;
 import raven.application.form.other.FormRead;
+import raven.application.form.other.Form_SanPhamChiTiet;
 import raven.menu.Menu;
 import raven.menu.MenuAction;
 
@@ -73,7 +74,13 @@ public class MainForm extends JLayeredPane {
             if (index == 0) {
                 Application.showForm(new Form_SanPham());
                 if (subIndex == 1) {
-
+                    Application.showForm(new Form_SanPham());
+                } else if (subIndex == 2) {
+                    Application.showForm(new Form_SanPhamChiTiet());
+                } else if (subIndex == 3) {
+                    Application.showForm(new FormRead());
+                } else {
+                    action.cancel();
                 }
             } else if (index == 1) {
                 if (subIndex == 1) {

@@ -3,6 +3,8 @@ package raven.application.form.other;
 import Model.SanPham;
 import Repository.SanPham_Repository;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
 
@@ -14,6 +16,7 @@ public class Form_SanPham extends javax.swing.JPanel {
 
     DefaultTableModel tblModel;
     SanPham_Repository sanPham_Repository = new SanPham_Repository();
+    List<SanPham> lts = new ArrayList<>();
 
     public Form_SanPham() {
         initComponents();
@@ -21,33 +24,34 @@ public class Form_SanPham extends javax.swing.JPanel {
                 + "font:$h1.font");
 
         tblModel = (DefaultTableModel) tblSanPham.getModel();
-        fillToTable();
+        lts = sanPham_Repository.getToAllSanPham();
+        fillToTable(lts);
     }
 
-    public void fillToTable() {
+    public void fillToTable(List<SanPham> lst) {
         tblModel.setRowCount(0);
         int n = 1;
-
-        for (SanPham i : sanPham_Repository.getToAllSanPham()) {
+        for (SanPham i : lst) {
             Object[] rows = new Object[3];
             rows[0] = n++;
-            rows[1] = i.getMaSanPham();
-            rows[2] = i.getTenSanpham();
+            rows[2] = i.getMaSanPham();
+            rows[1] = i.getTenSanpham();
             tblModel.addRow(rows);
         }
     }
 
     public SanPham getSanPham() {
-        String maSanPham = txtMaSP.getText();
+        String maSanPham;
+        int index = tblSanPham.getSelectedRow();
+        if (index < 0) {
+            maSanPham = sanPham_Repository.MaTuDongSanPham();
+        } else {
+            maSanPham = txtMaSP.getText();
+        }
         String tenSanPham = txtTenSP.getText();
 
-        if (maSanPham.isEmpty() || tenSanPham.isEmpty()) {
+        if (tenSanPham.isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Vui lòng không để trống.");
-            return null;
-        }
-
-        if (sanPham_Repository.check(maSanPham)) {
-            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Mã đã tồn tại vui lòng thử lại.");
             return null;
         }
         return new SanPham(maSanPham, tenSanPham);
@@ -65,9 +69,9 @@ public class Form_SanPham extends javax.swing.JPanel {
         txtTenSP = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnThemSP = new javax.swing.JButton();
-        btnThemSP1 = new javax.swing.JButton();
-        btnThemSP2 = new javax.swing.JButton();
-        btnThemSP3 = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
+        btnSPCT = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
@@ -85,6 +89,8 @@ public class Form_SanPham extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Sitka Display", 3, 18)); // NOI18N
         jLabel2.setText("Tên Sản Phẩm");
+
+        txtMaSP.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,23 +126,33 @@ public class Form_SanPham extends javax.swing.JPanel {
         btnThemSP.setBackground(new java.awt.Color(0, 204, 204));
         btnThemSP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnThemSP.setText("THÊM");
-
-        btnThemSP1.setBackground(new java.awt.Color(0, 204, 204));
-        btnThemSP1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThemSP1.setText("SỬA");
-
-        btnThemSP2.setBackground(new java.awt.Color(0, 204, 204));
-        btnThemSP2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThemSP2.setText("LÀM MỚI");
-        btnThemSP2.addActionListener(new java.awt.event.ActionListener() {
+        btnThemSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemSP2ActionPerformed(evt);
+                btnThemSPActionPerformed(evt);
             }
         });
 
-        btnThemSP3.setBackground(new java.awt.Color(0, 204, 204));
-        btnThemSP3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThemSP3.setText("SẢN PHẨM CHI TIẾT");
+        btnSua.setBackground(new java.awt.Color(0, 204, 204));
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.setText("SỬA");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
+
+        btnLamMoi.setBackground(new java.awt.Color(0, 204, 204));
+        btnLamMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLamMoi.setText("LÀM MỚI");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+
+        btnSPCT.setBackground(new java.awt.Color(0, 204, 204));
+        btnSPCT.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSPCT.setText("SẢN PHẨM CHI TIẾT");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -145,9 +161,9 @@ public class Form_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThemSP3, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                    .addComponent(btnThemSP2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnThemSP1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSPCT, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnThemSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -157,11 +173,11 @@ public class Form_SanPham extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnThemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnThemSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnThemSP2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnThemSP3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -176,10 +192,21 @@ public class Form_SanPham extends javax.swing.JPanel {
                 "STT", "TÊN ", "MÃ SẢN PHẨM"
             }
         ));
+        tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSanPhamMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSanPham);
 
         jLabel3.setFont(new java.awt.Font("Sitka Display", 3, 18)); // NOI18N
         jLabel3.setText("Tìm Kiếm");
+
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -241,18 +268,61 @@ public class Form_SanPham extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemSP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSP2ActionPerformed
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         txtMaSP.setText("");
         txtTenSP.setText("");
         txtSearch.setText("");
-    }//GEN-LAST:event_btnThemSP2ActionPerformed
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+        int index = tblSanPham.getSelectedRow();
+        if (index < 0) {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Vui lòng chọn dòng cần hiện thông tin.");
+            return;
+        } else {
+            txtMaSP.setText((String) tblSanPham.getValueAt(index, 2));
+            txtTenSP.setText((String) tblSanPham.getValueAt(index, 1));
+        }
+    }//GEN-LAST:event_tblSanPhamMouseClicked
+
+    private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
+        SanPham sp = getSanPham();
+        if (sp == null) {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Vui lòng thực hiện lại.");
+            return;
+        } else {
+            sanPham_Repository.addSanPham(sp);
+            lts = sanPham_Repository.getToAllSanPham();
+            fillToTable(lts);
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Đã thêm sản phẩm thành công.");
+        }
+    }//GEN-LAST:event_btnThemSPActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        SanPham sp = getSanPham();
+        if (sp == null) {
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Vui lòng thực hiện lại.");
+            return;
+        } else {
+            String maSanPham = txtMaSP.getText();
+            sanPham_Repository.updateSanPham(sp, maSanPham);
+            lts = sanPham_Repository.getToAllSanPham();
+            fillToTable(lts);
+            Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Đã sửa sản phẩm thành công.");
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        lts = sanPham_Repository.search_SanPham(txtSearch.getText());
+        fillToTable(lts);
+    }//GEN-LAST:event_txtSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLamMoi;
+    private javax.swing.JButton btnSPCT;
+    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThemSP;
-    private javax.swing.JButton btnThemSP1;
-    private javax.swing.JButton btnThemSP2;
-    private javax.swing.JButton btnThemSP3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
