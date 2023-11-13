@@ -31,8 +31,39 @@ public class SanPham_Repository {
         return listSanPham;
     }
 
+    public String MaTuDongSanPham() {
+        String ma = "SP";
+        int newTotal = 0;
+
+        try {
+            PreparedStatement ps = connect.prepareCall("SELECT COUNT(*) FROM SANPHAM");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                newTotal = rs.getInt(1) + 1;
+            }
+
+            // Sử dụng vòng lặp for để tạo mã sản phẩm tự động
+            String[] prefixes = {"0000", "000", "00", "0"};
+            int index = 0;
+
+            for (int limit : new int[]{10, 100, Integer.MAX_VALUE}) {
+                if (newTotal < limit) {
+                    ma = ma + prefixes[index] + newTotal;
+                    break;
+                }
+                index++;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error at Key");
+        }
+
+        return ma;
+    }
+
     public void addSanPham(SanPham sp) {
-        Connection con = DBConnection.getConnect();
+
         String sql = "INSERT INTO SANPHAM (MaSP, TenSP) VALUES (?,?)";
         try {
             PreparedStatement ps = connect.prepareCall(sql);
@@ -44,27 +75,43 @@ public class SanPham_Repository {
         }
     }
 
-    public ArrayList<SanPham> search_SanPham(String text) {
-        ArrayList<SanPham> listSearch = new ArrayList<>();
-        String query = "SELECT MaSP, TenSP FROM SANPHAM WHERE MaSP = ? OR TenSP = ?";
+    public void updateSanPham(SanPham sp, String ma) {
+
+        String sql = "UPDATE SANPHAM set TenSP = ? where MaSP = ?";
         try {
-            PreparedStatement ps = connect.prepareCall(query);
-            ps.setString(1, text);
-            ps.setString(2, text);
+            PreparedStatement ps = connect.prepareCall(sql);
+            ps.setString(1, sp.getTenSanpham());
+            ps.setString(2, ma);
             ps.execute();
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public List<SanPham> search_SanPham(String text) {
+        List<SanPham> listSearch = new ArrayList<>();
+        String query = "SELECT MaSP, TenSP FROM SANPHAM WHERE MaSP LIKE ? OR TenSP LIKE ?";
+        try {
+            PreparedStatement ps = connect.prepareCall(query);
+            ps.setString(1, "%" + text + "%");
+            ps.setString(2, "%" + text + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listSearch.add(new SanPham(rs.getString(1), rs.getString(2)));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error while searching for SanPham", e);
+        }
         return listSearch;
     }
 
-     public Boolean check(String ma){
-       String sql = "Select * From SANPHAM Where MaSP = ?";
+    public Boolean check(String ma) {
+        String sql = "Select * From SANPHAM Where MaSP = ?";
         try {
             PreparedStatement pstm = connect.prepareCall(sql);
-            pstm.setString(1,ma);
+            pstm.setString(1, ma);
             ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 return true;
             }
         } catch (Exception e) {
@@ -72,5 +119,5 @@ public class SanPham_Repository {
             return false;
         }
         return false;
-   }
+    }
 }
