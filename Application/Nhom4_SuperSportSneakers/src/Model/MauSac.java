@@ -9,15 +9,42 @@ package Model;
  * @author vutu8
  */
 public class MauSac {
+
+    private Long idMau;
     private String maMau;
     private String tenMau;
 
     public MauSac() {
     }
 
-    public MauSac(String maMau, String tenMau) {
+    public MauSac(Long idMau) {
+        this.idMau = idMau;   
+    }
+    
+    public MauSac(Long idMau, String maMau, String tenMau) {
+        this.idMau = idMau;
         this.maMau = maMau;
         this.tenMau = tenMau;
+    }
+
+    public MauSac(String tenMau) {
+        this.tenMau = tenMau;
+    }
+
+    public Long getIdMau() {
+        return idMau;
+    }
+
+    public void setIdMau(Long idMau) {
+        this.idMau = idMau;
+    }
+
+    public String getMaMau() {
+        return maMau;
+    }
+
+    public void setMaMau(String maMau) {
+        this.maMau = maMau;
     }
 
     public String getTenMau() {
@@ -28,12 +55,10 @@ public class MauSac {
         this.tenMau = tenMau;
     }
 
-    public String getMaMau() {
-        return maMau;
+    @Override
+    public String toString() {
+        return tenMau;
     }
 
-    public void setMaMau(String maMau) {
-        this.maMau = maMau;
-    }
     
 }

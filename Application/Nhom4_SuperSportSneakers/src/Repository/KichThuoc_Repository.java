@@ -19,16 +19,16 @@ public class KichThuoc_Repository {
 
     public ArrayList<KichThuoc> getToAllKichThuoc() {
         ArrayList<KichThuoc> listKichThuoc = new ArrayList<>();
-        String query = "Select MaSize, TenSize From SIZE";
+        String query = "Select ID,MaSize, TenSize From SIZE";
         try {
             PreparedStatement ps = connect.prepareCall(query);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-               listKichThuoc.add(new KichThuoc(rs.getString(1), rs.getString(2)));
+               listKichThuoc.add(new KichThuoc(rs.getLong(1), rs.getString(2), rs.getFloat(3)));
             }
         } catch (Exception e) {
-            System.out.println("Error at get to all sanPham");
+            System.out.println(e);
         }
         return listKichThuoc;
     }
@@ -70,7 +70,7 @@ public class KichThuoc_Repository {
         try {
             PreparedStatement ps = connect.prepareCall(sql);
             ps.setString(1, kt.getMaSize());
-            ps.setString(2, kt.getTenSize());
+            ps.setFloat(2, kt.getTenSize());
             ps.execute();
         } catch (Exception e) {
             System.out.println(e);
@@ -82,7 +82,7 @@ public class KichThuoc_Repository {
         String sql = "UPDATE SIZE set TenSize = ? where MaSize = ?";
         try {
             PreparedStatement ps = connect.prepareCall(sql);
-            ps.setString(1, kt.getTenSize());
+            ps.setFloat(1, kt.getTenSize());
             ps.setString(2, ma);
             ps.execute();
         } catch (Exception e) {

@@ -9,15 +9,42 @@ package Model;
  * @author vutu8
  */
 public class ThuongHieu {
+
+    private Long idThuongHieu;
     private String maThuongHieu;
     private String tenThuongHieu;
 
     public ThuongHieu() {
     }
 
-    public ThuongHieu(String maThuongHieu, String tenThuongHieu) {
+    public ThuongHieu(String tenThuongHieu) {
+        this.tenThuongHieu = tenThuongHieu;
+    }
+
+    public ThuongHieu(Long idThuongHieu, String maThuongHieu, String tenThuongHieu) {
+        this.idThuongHieu = idThuongHieu;
         this.maThuongHieu = maThuongHieu;
         this.tenThuongHieu = tenThuongHieu;
+    }
+
+    public ThuongHieu(Long idThuongHieu) {
+        this.idThuongHieu = idThuongHieu;
+    }
+
+    public Long getIdThuongHieu() {
+        return idThuongHieu;
+    }
+
+    public void setIdThuongHieu(Long idThuongHieu) {
+        this.idThuongHieu = idThuongHieu;
+    }
+
+    public String getMaThuongHieu() {
+        return maThuongHieu;
+    }
+
+    public void setMaThuongHieu(String maThuongHieu) {
+        this.maThuongHieu = maThuongHieu;
     }
 
     public String getTenThuongHieu() {
@@ -28,13 +55,9 @@ public class ThuongHieu {
         this.tenThuongHieu = tenThuongHieu;
     }
 
-    public String getMaThuongHieu() {
-        return maThuongHieu;
+    @Override
+    public String toString() {
+        return tenThuongHieu;
     }
 
-    public void setMaThuongHieu(String maThuongHieu) {
-        this.maThuongHieu = maThuongHieu;
-    }
-    
-    
 }

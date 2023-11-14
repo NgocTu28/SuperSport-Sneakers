@@ -8,33 +8,54 @@ import java.math.BigDecimal;
 
 public class SanPhamChiTiet {
 
+    private Long idSPCT;
     private String maSPCT;
-    private String tenSP;
-    private String tenTH;
-    private float size;
-    private String mauSac;
-    private int soLuongTon;
+    private int soLuong;
     private BigDecimal giaBan;
     private BigDecimal giaNiemYet;
+    private int TrangThai;
     private String moTa;
-    private String anh;
-    private int trangThai;
+    private MauSac idMau;
+    private KichThuoc idKichThuoc;
+    private ThuongHieu idThuongHieu;
+    private SanPham idSanPham;
 
     public SanPhamChiTiet() {
     }
 
-    public SanPhamChiTiet(String maSPCT, String tenSP, String tenTH, float size, String mauSac, int soLuongTon, BigDecimal giaBan, BigDecimal giaNiemYet, String moTa, String anh, int trangThai) {
+    public SanPhamChiTiet(Long idSPCT, String maSPCT, int soLuong, BigDecimal giaBan, BigDecimal giaNiemYet, int TrangThai, String moTa, MauSac idMau, KichThuoc idKichThuoc, ThuongHieu idThuongHieu, SanPham idSanPham) {
+        this.idSPCT = idSPCT;
         this.maSPCT = maSPCT;
-        this.tenSP = tenSP;
-        this.tenTH = tenTH;
-        this.size = size;
-        this.mauSac = mauSac;
-        this.soLuongTon = soLuongTon;
+        this.soLuong = soLuong;
         this.giaBan = giaBan;
         this.giaNiemYet = giaNiemYet;
+        this.TrangThai = TrangThai;
         this.moTa = moTa;
-        this.anh = anh;
-        this.trangThai = trangThai;
+        this.idMau = idMau;
+        this.idKichThuoc = idKichThuoc;
+        this.idThuongHieu = idThuongHieu;
+        this.idSanPham = idSanPham;
+    }
+
+    public SanPhamChiTiet(String maSPCT, int soLuong, BigDecimal giaBan, BigDecimal giaNiemYet, int TrangThai, String moTa, MauSac idMau, KichThuoc idKichThuoc, ThuongHieu idThuongHieu, SanPham idSanPham) {
+        this.maSPCT = maSPCT;
+        this.soLuong = soLuong;
+        this.giaBan = giaBan;
+        this.giaNiemYet = giaNiemYet;
+        this.TrangThai = TrangThai;
+        this.moTa = moTa;
+        this.idMau = idMau;
+        this.idKichThuoc = idKichThuoc;
+        this.idThuongHieu = idThuongHieu;
+        this.idSanPham = idSanPham;
+    }
+
+    public Long getIdSPCT() {
+        return idSPCT;
+    }
+
+    public void setIdSPCT(Long idSPCT) {
+        this.idSPCT = idSPCT;
     }
 
     public String getMaSPCT() {
@@ -45,44 +66,12 @@ public class SanPhamChiTiet {
         this.maSPCT = maSPCT;
     }
 
-    public String getTenSP() {
-        return tenSP;
+    public int getSoLuong() {
+        return soLuong;
     }
 
-    public void setTenSP(String tenSP) {
-        this.tenSP = tenSP;
-    }
-
-    public String getTenTH() {
-        return tenTH;
-    }
-
-    public void setTenTH(String tenTH) {
-        this.tenTH = tenTH;
-    }
-
-    public float getSize() {
-        return size;
-    }
-
-    public void setSize(float size) {
-        this.size = size;
-    }
-
-    public String getMauSac() {
-        return mauSac;
-    }
-
-    public void setMauSac(String mauSac) {
-        this.mauSac = mauSac;
-    }
-
-    public int getSoLuongTon() {
-        return soLuongTon;
-    }
-
-    public void setSoLuongTon(int soLuongTon) {
-        this.soLuongTon = soLuongTon;
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
     }
 
     public BigDecimal getGiaBan() {
@@ -101,6 +90,14 @@ public class SanPhamChiTiet {
         this.giaNiemYet = giaNiemYet;
     }
 
+    public int getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(int TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+
     public String getMoTa() {
         return moTa;
     }
@@ -109,21 +106,36 @@ public class SanPhamChiTiet {
         this.moTa = moTa;
     }
 
-    public String getAnh() {
-        return anh;
+    public MauSac getIdMau() {
+        return idMau;
     }
 
-    public void setAnh(String anh) {
-        this.anh = anh;
+    public void setIdMau(MauSac idMau) {
+        this.idMau = idMau;
     }
 
-    public int getTrangThai() {
-        return trangThai;
+    public KichThuoc getIdKichThuoc() {
+        return idKichThuoc;
     }
 
-    public void setTrangThai(int trangThai) {
-        this.trangThai = trangThai;
+    public void setIdKichThuoc(KichThuoc idKichThuoc) {
+        this.idKichThuoc = idKichThuoc;
     }
 
-    
+    public ThuongHieu getIdThuongHieu() {
+        return idThuongHieu;
+    }
+
+    public void setIdThuongHieu(ThuongHieu idThuongHieu) {
+        this.idThuongHieu = idThuongHieu;
+    }
+
+    public SanPham getIdSanPham() {
+        return idSanPham;
+    }
+
+    public void setIdSanPham(SanPham idSanPham) {
+        this.idSanPham = idSanPham;
+    }
+
 }

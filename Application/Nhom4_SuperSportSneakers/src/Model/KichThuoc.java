@@ -9,15 +9,34 @@ package Model;
  * @author vutu8
  */
 public class KichThuoc {
-     private String maSize;
-    private String tenSize;
+
+    private Long idSize;
+    private String maSize;
+    private float tenSize;
 
     public KichThuoc() {
     }
 
-    public KichThuoc(String maSize, String tenSize) {
+    public KichThuoc(Long idSize) {
+        this.idSize = idSize;
+    }
+
+    public KichThuoc(Long idSize, String maSize, float tenSize) {
+        this.idSize = idSize;
         this.maSize = maSize;
         this.tenSize = tenSize;
+    }
+
+    public KichThuoc(float tenSize) {
+        this.tenSize = tenSize;
+    }
+
+    public Long getIdSize() {
+        return idSize;
+    }
+
+    public void setIdSize(Long idSize) {
+        this.idSize = idSize;
     }
 
     public String getMaSize() {
@@ -28,13 +47,17 @@ public class KichThuoc {
         this.maSize = maSize;
     }
 
-    public String getTenSize() {
+    public float getTenSize() {
         return tenSize;
     }
 
-    public void setTenSize(String tenSize) {
+    public void setTenSize(float tenSize) {
         this.tenSize = tenSize;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return tenSize + "";
+    }
+
 }
