@@ -9,6 +9,8 @@ package Model;
  * @author vutu8
  */
 public class SanPham {
+
+    private Long idSanPham;
     private String maSanPham;
     private String tenSanpham;
 
@@ -20,12 +22,26 @@ public class SanPham {
         this.tenSanpham = tenSanpham;
     }
 
-    public String getTenSanpham() {
-        return tenSanpham;
+    public SanPham(String tenSanpham) {
+        this.tenSanpham = tenSanpham;
     }
 
-    public void setTenSanpham(String tenSanpham) {
+    public SanPham(Long idSanPham, String maSanPham, String tenSanpham) {
+        this.idSanPham = idSanPham;
+        this.maSanPham = maSanPham;
         this.tenSanpham = tenSanpham;
+    }
+
+    public SanPham(Long idSanPham) {
+        this.idSanPham = idSanPham;   
+    }
+    
+    public Long getIdSanPham() {
+        return idSanPham;
+    }
+
+    public void setIdSanPham(Long idSanPham) {
+        this.idSanPham = idSanPham;
     }
 
     public String getMaSanPham() {
@@ -35,6 +51,19 @@ public class SanPham {
     public void setMaSanPham(String maSanPham) {
         this.maSanPham = maSanPham;
     }
+
+    public String getTenSanpham() {
+        return tenSanpham;
+    }
+
+    public void setTenSanpham(String tenSanpham) {
+        this.tenSanpham = tenSanpham;
+    }
+
+    @Override
+    public String toString() {
+        return  tenSanpham ;
+    }
+
     
-  
 }

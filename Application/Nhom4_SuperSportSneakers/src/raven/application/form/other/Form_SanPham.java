@@ -49,7 +49,7 @@ public class Form_SanPham extends javax.swing.JPanel {
             maSanPham = txtMaSP.getText();
         }
         String tenSanPham = txtTenSP.getText();
-
+        System.out.println(maSanPham);
         if (tenSanPham.isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Vui lòng không để trống.");
             return null;
@@ -123,7 +123,6 @@ public class Form_SanPham extends javax.swing.JPanel {
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btnThemSP.setBackground(new java.awt.Color(0, 204, 204));
         btnThemSP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnThemSP.setText("THÊM");
         btnThemSP.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +131,6 @@ public class Form_SanPham extends javax.swing.JPanel {
             }
         });
 
-        btnSua.setBackground(new java.awt.Color(0, 204, 204));
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSua.setText("SỬA");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +139,6 @@ public class Form_SanPham extends javax.swing.JPanel {
             }
         });
 
-        btnLamMoi.setBackground(new java.awt.Color(0, 204, 204));
         btnLamMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLamMoi.setText("LÀM MỚI");
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +147,6 @@ public class Form_SanPham extends javax.swing.JPanel {
             }
         });
 
-        btnSPCT.setBackground(new java.awt.Color(0, 204, 204));
         btnSPCT.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSPCT.setText("SẢN PHẨM CHI TIẾT");
 

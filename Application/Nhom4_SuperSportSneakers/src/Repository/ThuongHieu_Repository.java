@@ -20,16 +20,16 @@ public class ThuongHieu_Repository {
 
     public ArrayList<ThuongHieu> getToAll() {
         ArrayList<ThuongHieu> list = new ArrayList<>();
-        String query = "Select MaThuongHieu, TenThuongHieu From THUONGHIEU";
+        String query = "Select ID,MaThuongHieu, TenThuongHieu From THUONGHIEU";
         try {
             PreparedStatement ps = connect.prepareCall(query);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(new ThuongHieu(rs.getString(1), rs.getString(2)));
+                list.add(new ThuongHieu(rs.getLong(1),rs.getString(2), rs.getString(3)));
             }
         } catch (Exception e) {
-            System.out.println("Error at get to all sanPham");
+            System.out.println(e);
         }
         return list;
     }

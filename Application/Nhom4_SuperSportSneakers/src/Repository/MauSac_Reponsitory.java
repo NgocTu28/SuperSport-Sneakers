@@ -20,16 +20,16 @@ public class MauSac_Reponsitory {
 
     public ArrayList<MauSac> getToAllSanPham() {
         ArrayList<MauSac> listMauSac = new ArrayList<>();
-        String query = "Select MaMau, TenMau From MAU";
+        String query = "Select ID,MaMau, TenMau From MAU";
         try {
             PreparedStatement ps = connect.prepareCall(query);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                listMauSac.add(new MauSac(rs.getString(1), rs.getString(2)));
+                listMauSac.add(new MauSac(rs.getLong(1), rs.getString(2), rs.getString(3)));
             }
         } catch (Exception e) {
-            System.out.println("Error at get to all sanPham");
+            System.out.println(e);
         }
         return listMauSac;
     }

@@ -17,13 +17,13 @@ public class SanPham_Repository {
 
     public ArrayList<SanPham> getToAllSanPham() {
         ArrayList<SanPham> listSanPham = new ArrayList<>();
-        String query = "Select MaSP, TenSP From SANPHAM";
+        String query = "Select ID,MaSP, TenSP From SANPHAM";
         try {
             PreparedStatement ps = connect.prepareCall(query);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                listSanPham.add(new SanPham(rs.getString(1), rs.getString(2)));
+                listSanPham.add(new SanPham(rs.getLong(1), rs.getString(2), rs.getString(3)));
             }
         } catch (Exception e) {
             System.out.println("Error at get to all sanPham");
@@ -90,14 +90,14 @@ public class SanPham_Repository {
 
     public List<SanPham> search_SanPham(String text) {
         List<SanPham> listSearch = new ArrayList<>();
-        String query = "SELECT MaSP, TenSP FROM SANPHAM WHERE MaSP LIKE ? OR TenSP LIKE ?";
+        String query = "SELECT  ID,MaSP, TenSP FROM SANPHAM WHERE MaSP LIKE ? OR TenSP LIKE ?";
         try {
             PreparedStatement ps = connect.prepareCall(query);
             ps.setString(1, "%" + text + "%");
             ps.setString(2, "%" + text + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                listSearch.add(new SanPham(rs.getString(1), rs.getString(2)));
+                listSearch.add(new SanPham(rs.getLong(1), rs.getString(2), rs.getString(3)));
             }
         } catch (Exception e) {
             throw new RuntimeException("Error while searching for SanPham", e);
