@@ -38,7 +38,7 @@ public class SanPhamCT_Repository {
                 SanPham sanPham = new SanPham(rs.getString("TenSP"));
                 MauSac mauSac = new MauSac(rs.getString("TenMau"));
                 ThuongHieu thuongHieu = new ThuongHieu(rs.getString("TenThuongHieu"));
-                KichThuoc kichThuoc = new KichThuoc(rs.getFloat("TenSize"));
+                KichThuoc kichThuoc = new KichThuoc(rs.getString("TenSize"));
 
                 SanPhamChiTiet sanPhamChiTiet = new SanPhamChiTiet(rs.getLong("ID"), rs.getString("MaCTSP"), rs.getInt("SoLuongTon"), rs.getBigDecimal("GiaBan"), rs.getBigDecimal("GiaNiemYet"), rs.getInt("TrangThai"), rs.getString("MoTa"), mauSac, kichThuoc, thuongHieu, sanPham);
                 list.add(sanPhamChiTiet);
@@ -69,7 +69,7 @@ public class SanPhamCT_Repository {
                 SanPham sanPham = new SanPham(rs.getString("TenSP"));
                 MauSac mauSac = new MauSac(rs.getString("TenMau"));
                 ThuongHieu thuongHieu = new ThuongHieu(rs.getString("TenThuongHieu"));
-                KichThuoc kichThuoc = new KichThuoc(rs.getFloat("TenSize"));
+                KichThuoc kichThuoc = new KichThuoc(rs.getString("TenSize"));
                 SanPhamChiTiet sanPhamChiTiet = new SanPhamChiTiet(rs.getLong("ID"), rs.getString("MaCTSP"), rs.getInt("SoLuongTon"), rs.getBigDecimal("GiaBan"), rs.getBigDecimal("GiaNiemYet"), rs.getInt("TrangThai"), rs.getString("MoTa"), mauSac, kichThuoc, thuongHieu, sanPham);
                 list.add(sanPhamChiTiet);
             }
@@ -177,7 +177,7 @@ public class SanPhamCT_Repository {
                 SanPham sanPham = new SanPham(rs.getString("TenSP"));
                 MauSac mauSac = new MauSac(rs.getString("TenMau"));
                 ThuongHieu thuongHieu = new ThuongHieu(rs.getString("TenThuongHieu"));
-                KichThuoc kichThuoc = new KichThuoc(rs.getFloat("TenSize"));
+                KichThuoc kichThuoc = new KichThuoc(rs.getString("TenSize"));
 
                 result = new SanPhamChiTiet(rs.getLong("ID"), rs.getString("MaCTSP"), rs.getInt("SoLuongTon"), rs.getBigDecimal("GiaBan"), rs.getBigDecimal("GiaNiemYet"), rs.getInt("TrangThai"), rs.getString("MoTa"), mauSac, kichThuoc, thuongHieu, sanPham);
             }
