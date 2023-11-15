@@ -13,10 +13,24 @@ public class SanPham {
     private Long idSanPham;
     private String maSanPham;
     private String tenSanpham;
+    private int trangThai;
 
     public SanPham() {
     }
 
+    public SanPham(Long idSanPham, String maSanPham, String tenSanpham, int trangThai) {
+        this.idSanPham = idSanPham;
+        this.maSanPham = maSanPham;
+        this.tenSanpham = tenSanpham;
+        this.trangThai = trangThai;
+    }
+
+    public SanPham( String maSanPham, String tenSanpham, int trangThai) {  
+        this.maSanPham = maSanPham;
+        this.tenSanpham = tenSanpham;
+        this.trangThai = trangThai;
+    }
+    
     public SanPham(String maSanPham, String tenSanpham) {
         this.maSanPham = maSanPham;
         this.tenSanpham = tenSanpham;
@@ -63,6 +77,14 @@ public class SanPham {
     @Override
     public String toString() {
         return  tenSanpham ;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
     

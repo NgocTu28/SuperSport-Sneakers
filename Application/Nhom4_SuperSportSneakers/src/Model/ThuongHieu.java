@@ -13,10 +13,24 @@ public class ThuongHieu {
     private Long idThuongHieu;
     private String maThuongHieu;
     private String tenThuongHieu;
+    private int trangThai;
 
     public ThuongHieu() {
     }
 
+    public ThuongHieu(Long idThuongHieu, String maThuongHieu, String tenThuongHieu, int trangThai) {
+        this.idThuongHieu = idThuongHieu;
+        this.maThuongHieu = maThuongHieu;
+        this.tenThuongHieu = tenThuongHieu;
+        this.trangThai = trangThai;
+    }
+
+    public ThuongHieu(String maThuongHieu, String tenThuongHieu, int trangThai) {
+        this.maThuongHieu = maThuongHieu;
+        this.tenThuongHieu = tenThuongHieu;
+        this.trangThai = trangThai;
+    }
+    
     public ThuongHieu(String tenThuongHieu) {
         this.tenThuongHieu = tenThuongHieu;
     }
@@ -58,6 +72,14 @@ public class ThuongHieu {
     @Override
     public String toString() {
         return tenThuongHieu;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
 }

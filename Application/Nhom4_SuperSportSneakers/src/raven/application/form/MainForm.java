@@ -16,10 +16,11 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import raven.application.Application;
+import raven.application.form.other.Form_KichThuoc;
+import raven.application.form.other.Form_MauSac;
 import raven.application.form.other.Form_SanPham;
-import raven.application.form.other.FormInbox;
-import raven.application.form.other.FormRead;
 import raven.application.form.other.Form_SanPhamChiTiet;
+import raven.application.form.other.Form_ThuongHieu;
 import raven.menu.Menu;
 import raven.menu.MenuAction;
 
@@ -78,15 +79,19 @@ public class MainForm extends JLayeredPane {
                 } else if (subIndex == 2) {
                     Application.showForm(new Form_SanPhamChiTiet());
                 } else if (subIndex == 3) {
-                    Application.showForm(new FormRead());
+                    Application.showForm(new Form_MauSac());
+                } else if (subIndex == 4) {
+                    Application.showForm(new Form_KichThuoc());
+                } else if (subIndex == 5) {
+                    Application.showForm(new Form_ThuongHieu());
                 } else {
                     action.cancel();
                 }
             } else if (index == 1) {
                 if (subIndex == 1) {
-                    Application.showForm(new FormInbox());
+
                 } else if (subIndex == 2) {
-                    Application.showForm(new FormRead());
+
                 } else {
                     action.cancel();
                 }

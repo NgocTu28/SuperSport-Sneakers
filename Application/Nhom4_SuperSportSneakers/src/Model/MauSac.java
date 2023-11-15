@@ -13,7 +13,7 @@ public class MauSac {
     private Long idMau;
     private String maMau;
     private String tenMau;
-
+    private int trangThai;
     public MauSac() {
     }
 
@@ -27,6 +27,18 @@ public class MauSac {
         this.tenMau = tenMau;
     }
 
+    public MauSac(Long idMau, String maMau, String tenMau, int trangThai) {
+        this.idMau = idMau;
+        this.maMau = maMau;
+        this.tenMau = tenMau;
+        this.trangThai = trangThai;
+    }
+    
+    public MauSac(String maMau, String tenMau, int trangThai) {
+        this.maMau = maMau;
+        this.tenMau = tenMau;
+        this.trangThai = trangThai;
+    }
     public MauSac(String tenMau) {
         this.tenMau = tenMau;
     }
@@ -58,6 +70,14 @@ public class MauSac {
     @Override
     public String toString() {
         return tenMau;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
     
