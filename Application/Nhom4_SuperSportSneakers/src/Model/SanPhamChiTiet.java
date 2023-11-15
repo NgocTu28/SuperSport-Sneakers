@@ -49,6 +49,7 @@ public class SanPhamChiTiet {
         this.idThuongHieu = idThuongHieu;
         this.idSanPham = idSanPham;
     }
+    
 
     public Long getIdSPCT() {
         return idSPCT;

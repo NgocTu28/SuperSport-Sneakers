@@ -77,7 +77,6 @@ public class SanPhamCT_Repository {
             System.out.println(e);
         }
         return list;
-
     }
 // Đếm tổng số bản ghi 
 
@@ -99,7 +98,7 @@ public class SanPhamCT_Repository {
     }
 
     public void insertSPCT(SanPhamChiTiet spct) {
-        String query = " Insert  into CHI_TIET_SAN_PHAM (IdSP,IdThuongHieu,IdMau,IdSize,MaCTSP,SoLuongTon,GiaNiemYet,GiaBan) Values (?,?,?,?,?,?,?,?)";
+        String query = " Insert  into CHI_TIET_SAN_PHAM (IdSP,IdThuongHieu,IdMau,IdSize,MaCTSP,SoLuongTon,GiaNiemYet,GiaBan,MoTa,TrangThai) Values (?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pstm = connect.prepareCall(query);
             pstm.setLong(1, spct.getIdSanPham().getIdSanPham());
@@ -110,6 +109,26 @@ public class SanPhamCT_Repository {
             pstm.setInt(6, spct.getSoLuong());
             pstm.setBigDecimal(7, spct.getGiaNiemYet());
             pstm.setBigDecimal(8, spct.getGiaBan());
+            pstm.setString(9, spct.getMoTa());
+            pstm.setInt(10, spct.getTrangThai());
+
+            pstm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateSPCT(SanPhamChiTiet spct, String maCTSP) {
+        String query = " UPDATE CHI_TIET_SAN_PHAM  set SoLuongTon = ?,GiaNiemYet = ?,GiaBan = ?,MoTa = ?,TrangThai=? WHERE MaCTSP = ?";
+        try {
+            PreparedStatement pstm = connect.prepareCall(query);
+
+            pstm.setInt(1, spct.getSoLuong());
+            pstm.setBigDecimal(2, spct.getGiaNiemYet());
+            pstm.setBigDecimal(3, spct.getGiaBan());
+            pstm.setString(4, spct.getMoTa());
+            pstm.setInt(5, spct.getTrangThai());
+            pstm.setString(6, maCTSP);
             pstm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -140,4 +159,32 @@ public class SanPhamCT_Repository {
         }
         return ma;
     }
+
+    public SanPhamChiTiet getProductByMa(String ma) {
+        SanPhamChiTiet result = null;
+        String sql = "select CTSP.ID,CTSP.MaCTSP,SP.TenSP,TH.TenThuongHieu,S.TenSize,M.TenMau,CTSP.SoLuongTon, CTSP.GiaBan, CTSP.GiaNiemYet, CTSP.MoTa, CTSP.TrangThai  from CHI_TIET_SAN_PHAM as CTSP\n"
+                + "join MAU as M on M.ID = CTSP.IdMau\n"
+                + "join SIZE as S on S.ID = CTSP.IdSize\n"
+                + "join THUONGHIEU as TH on TH.ID = CTSP.IdThuongHieu\n"
+                + "join SANPHAM as SP on SP.ID = CTSP.IdSP\n"
+                + "WHERE CTSP.MaCTSP = ?";
+
+        try {
+            PreparedStatement pstm = connect.prepareCall(sql);
+            pstm.setString(1, ma);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                SanPham sanPham = new SanPham(rs.getString("TenSP"));
+                MauSac mauSac = new MauSac(rs.getString("TenMau"));
+                ThuongHieu thuongHieu = new ThuongHieu(rs.getString("TenThuongHieu"));
+                KichThuoc kichThuoc = new KichThuoc(rs.getFloat("TenSize"));
+
+                result = new SanPhamChiTiet(rs.getLong("ID"), rs.getString("MaCTSP"), rs.getInt("SoLuongTon"), rs.getBigDecimal("GiaBan"), rs.getBigDecimal("GiaNiemYet"), rs.getInt("TrangThai"), rs.getString("MoTa"), mauSac, kichThuoc, thuongHieu, sanPham);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return result;
+    }
+
 }
