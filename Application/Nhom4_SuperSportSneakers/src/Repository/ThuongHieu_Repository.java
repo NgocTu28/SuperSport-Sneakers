@@ -167,4 +167,20 @@ public class ThuongHieu_Repository {
             return 0;
         }
     }
+
+    public ThuongHieu findThuongHieuByName(String name) {
+        ThuongHieu th = null;
+        String query = "SELECT  MaThuongHieu, TenThuongHieu FROM THUONGHIEU WHERE TenThuongHieu = ?";
+        try {
+            PreparedStatement ps = connect.prepareCall(query);
+            ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                 th = new ThuongHieu(rs.getString(1), rs.getString(2), rs.getInt(3));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error while searching for SanPham", e);
+        }
+        return th;
+    }
 }
