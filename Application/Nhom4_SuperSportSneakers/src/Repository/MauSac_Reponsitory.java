@@ -170,4 +170,20 @@ public class MauSac_Reponsitory {
         }
         return listSearch;
     }
+
+    public MauSac findMauSacByName(String mauSacStr) {
+        MauSac th = null;
+        String query = "SELECT  MaMau, TenMau,TrangThai FROM MAU WHERE TenMau = ?";
+        try {
+            PreparedStatement ps = connect.prepareCall(query);
+            ps.setString(1, "%" + mauSacStr + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                th = new MauSac(rs.getString(1), rs.getString(2), rs.getInt(3));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error while searching for SanPham", e);
+        }
+        return th;
+    }
 }

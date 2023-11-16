@@ -6,6 +6,7 @@ package Repository;
 
 import Model.KichThuoc;
 import Model.MauSac;
+import Model.ThuongHieu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -166,5 +167,21 @@ public class KichThuoc_Repository {
             throw new RuntimeException("Error while searching for KichThuoc", e);
         }
         return listSearch;
+    }
+
+    public KichThuoc findKichCoByName(String kichCoStr) {
+        KichThuoc th = null;
+        String query = "SELECT  MaSize, TenSize,TrangThai FROM SIZE WHERE TenSize LIKE ?";
+        try {
+            PreparedStatement ps = connect.prepareCall(query);
+            ps.setString(1, "%" + kichCoStr + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                 th = new KichThuoc(rs.getString(1), rs.getString(2), rs.getInt(3));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error while searching for SanPham", e);
+        }
+        return th;
     }
 }

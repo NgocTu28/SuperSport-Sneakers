@@ -15,16 +15,23 @@ import Repository.MauSac_Reponsitory;
 import Repository.SanPhamCT_Repository;
 import Repository.SanPham_Repository;
 import Repository.ThuongHieu_Repository;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.management.Notification;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import pro1041.team_3.swing.jnafilechooser.api.JnaFileChooser;
 import raven.application.Application;
 import raven.toast.Notifications;
 
@@ -50,7 +57,7 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
     private DefaultComboBoxModel model2 = new DefaultComboBoxModel();
     private DefaultComboBoxModel model3 = new DefaultComboBoxModel();
 
-    private giayChiTiet_Impl chiTiet_Impl = new giayChiTiet_Impl();
+    private static giayChiTiet_Impl chiTiet_Impl = new giayChiTiet_Impl();
 
     public Form_SanPhamChiTiet() {
         initComponents();
@@ -428,11 +435,12 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbo_TenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6)
-                            .addComponent(btnAdd_MauSac1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAdd_MauSac1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbo_TenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel6)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -500,12 +508,27 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
 
         btnExport.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         btnExport.setText("Export");
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
 
         btnTemplate.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         btnTemplate.setText("Mẫu Import");
+        btnTemplate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTemplateActionPerformed(evt);
+            }
+        });
 
         btnImport.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         btnImport.setText("Import");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
+            }
+        });
 
         btnQr.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         btnQr.setText("Xuất QR");
@@ -588,11 +611,22 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel9.setText("Tìm Kiếm");
 
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
+
         jLabel13.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel13.setText("Lọc Trạng Thái");
 
         cboLocTrangThai.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         cboLocTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn Hàng", "Tạm Hết", "Dừng Bán" }));
+        cboLocTrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboLocTrangThaiActionPerformed(evt);
+            }
+        });
 
         jButton13.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jButton13.setText("<<");
@@ -626,7 +660,7 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
             }
         });
 
-        soTrang.setText("     Số Trang");
+        soTrang.setText("1");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel10.setText("Danh sách sản phẩm chi tiết");
@@ -935,6 +969,100 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
     private void btnAdd_MauSac1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd_MauSac1ActionPerformed
         Application.showForm(new Form_SanPham());
     }//GEN-LAST:event_btnAdd_MauSac1ActionPerformed
+
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        JnaFileChooser jfc = new JnaFileChooser();
+        jfc.setMode(JnaFileChooser.Mode.Directories);
+        if (!jfc.showOpenDialog((JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this))) {
+            return;
+        }
+        String path = jfc.getSelectedFile().getAbsolutePath();
+        LocalDateTime local = LocalDateTime.now();
+        File file = new File(path + "\\DanhSachGiayChiTiet_" + local.getDayOfMonth() + "_" + local.getMonthValue() + "_" + local.getYear() + ".xlsx");
+
+        if (chiTiet_Impl.export(file)) {
+            JOptionPane.showMessageDialog(this, "Export thành công", "Export", JOptionPane.INFORMATION_MESSAGE);
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                if (file.exists()) {
+                    try {
+                        desktop.open(file);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(this, "Mở thất bại", "Export", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Thất bại", "Export", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnExportActionPerformed
+
+    private void btnTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTemplateActionPerformed
+        // BTN export mẫu
+        JnaFileChooser jfc = new JnaFileChooser();
+        jfc.setMode(JnaFileChooser.Mode.Directories);
+        if (!jfc.showOpenDialog((JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this))) {
+            return;
+        }
+        String path = jfc.getSelectedFile().getAbsolutePath();
+        File file = new File(path + "\\MauImport.xlsx");
+
+        if (chiTiet_Impl.exportMau(file)) {
+            JOptionPane.showMessageDialog(this, "Tải mẫu thành công", "Export", JOptionPane.INFORMATION_MESSAGE);
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                if (file.exists()) {
+                    try {
+                        desktop.open(file);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(this, "Mở thất bại", "Export", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Thất bại", "Export", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnTemplateActionPerformed
+
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+        //BTN Import Excel
+        JFileChooser avatarChooser = new JFileChooser("D:\\");
+        FileNameExtensionFilter avatarFilter = new FileNameExtensionFilter("Exel File", "xlsx");
+        avatarChooser.setFileFilter(avatarFilter);
+        avatarChooser.setAcceptAllFileFilterUsed(false);
+        int selectFileCheck = avatarChooser.showOpenDialog(this);
+        File selectedFile = avatarChooser.getSelectedFile();
+        if (!(selectFileCheck == JFileChooser.APPROVE_OPTION)) {
+            return;
+        }
+        String ketQua = chiTiet_Impl.importFile(selectedFile);
+        if (ketQua.equals("Import thành công")) {
+            listSanPhamChiTiet = sanPhamCT_Repository.get(page, 5);
+            fillToTable(listSanPhamChiTiet);
+        }
+        JOptionPane.showMessageDialog(this, ketQua);
+    }//GEN-LAST:event_btnImportActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        List<SanPhamChiTiet> listSearch = sanPhamCT_Repository.search_SanPhamChiTiet(txtSearch.getText().trim());
+        System.out.println(listSearch);
+        fillToTable(listSearch);
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void cboLocTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLocTrangThaiActionPerformed
+        if (cboLocTrangThai.getSelectedIndex() == 0) {
+            List<SanPhamChiTiet> listSearch = sanPhamCT_Repository.searchTrangThai_SanPhamChiTiet(0);
+            fillToTable(listSearch);
+        } else if (cboLocTrangThai.getSelectedIndex() == 1){
+             List<SanPhamChiTiet> listSearch = sanPhamCT_Repository.searchTrangThai_SanPhamChiTiet(1);
+             fillToTable(listSearch);
+        }else if (cboLocTrangThai.getSelectedIndex() == 2){
+             List<SanPhamChiTiet> listSearch = sanPhamCT_Repository.searchTrangThai_SanPhamChiTiet(2);
+             fillToTable(listSearch);
+        }
+    }//GEN-LAST:event_cboLocTrangThaiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

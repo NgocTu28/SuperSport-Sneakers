@@ -179,4 +179,20 @@ public class SanPham_Repository {
         }
         return listSearch;
     }
+
+    public SanPham findSanPhamByName(String sanPhamStr) {
+        SanPham th = null;
+        String query = "SELECT  MaSP, TenSP, TrangThai FROM MAU WHERE TenSP = ?";
+        try {
+            PreparedStatement ps = connect.prepareCall(query);
+            ps.setString(1,sanPhamStr);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                 th = new SanPham(rs.getString(1), rs.getString(2), rs.getInt(3));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error while searching for SanPham", e);
+        }
+        return th;
+    }
 }

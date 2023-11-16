@@ -49,6 +49,63 @@ public class SanPhamCT_Repository {
         return list;
     }
 
+    public List<SanPhamChiTiet> search_SanPhamChiTiet(String text) {
+        List<SanPhamChiTiet> listSearch = new ArrayList<>();
+        String query = "select  CTSP.ID,CTSP.MaCTSP,SP.TenSP,TH.TenThuongHieu,S.TenSize,M.TenMau,CTSP.SoLuongTon, CTSP.GiaBan, CTSP.GiaNiemYet, CTSP.MoTa, CTSP.TrangThai , CTSP.ID as ID from CHI_TIET_SAN_PHAM as CTSP\n"
+                + "join MAU as M on M.ID = CTSP.IdMau\n"
+                + "join SIZE as S on S.ID = CTSP.IdSize\n"
+                + "join THUONGHIEU as TH on TH.ID = CTSP.IdThuongHieu\n"
+                + "join SANPHAM as SP on SP.ID = CTSP.IdSP\n"
+                + "WHERE MACTSP like ? OR TenSP like ? OR TenThuongHieu like ?";
+        try {
+            PreparedStatement ps = connect.prepareCall(query);
+            ps.setString(1, "%" + text + "%");
+            ps.setString(2, "%" + text + "%");
+            ps.setString(3, "%" + text + "%");
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPham sanPham = new SanPham(rs.getString("TenSP"));
+                MauSac mauSac = new MauSac(rs.getString("TenMau"));
+                ThuongHieu thuongHieu = new ThuongHieu(rs.getString("TenThuongHieu"));
+                KichThuoc kichThuoc = new KichThuoc(rs.getString("TenSize"));
+
+                SanPhamChiTiet sanPhamChiTiet = new SanPhamChiTiet(rs.getLong("ID"), rs.getString("MaCTSP"), rs.getInt("SoLuongTon"), rs.getBigDecimal("GiaBan"), rs.getBigDecimal("GiaNiemYet"), rs.getInt("TrangThai"), rs.getString("MoTa"), mauSac, kichThuoc, thuongHieu, sanPham);
+                listSearch.add(sanPhamChiTiet);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listSearch;
+    }
+
+    public List<SanPhamChiTiet> searchTrangThai_SanPhamChiTiet(int n) {
+        List<SanPhamChiTiet> listSearch = new ArrayList<>();
+        String query = "select  CTSP.ID,CTSP.MaCTSP,SP.TenSP,TH.TenThuongHieu,S.TenSize,M.TenMau,CTSP.SoLuongTon, CTSP.GiaBan, CTSP.GiaNiemYet, CTSP.MoTa, CTSP.TrangThai , CTSP.ID as ID from CHI_TIET_SAN_PHAM as CTSP\n"
+                + "join MAU as M on M.ID = CTSP.IdMau\n"
+                + "join SIZE as S on S.ID = CTSP.IdSize\n"
+                + "join THUONGHIEU as TH on TH.ID = CTSP.IdThuongHieu\n"
+                + "join SANPHAM as SP on SP.ID = CTSP.IdSP\n"
+                + "WHERE CTSP.TrangThai = ?";
+        try {
+            PreparedStatement ps = connect.prepareCall(query);
+            ps.setInt(1, n);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPham sanPham = new SanPham(rs.getString("TenSP"));
+                MauSac mauSac = new MauSac(rs.getString("TenMau"));
+                ThuongHieu thuongHieu = new ThuongHieu(rs.getString("TenThuongHieu"));
+                KichThuoc kichThuoc = new KichThuoc(rs.getString("TenSize"));
+
+                SanPhamChiTiet sanPhamChiTiet = new SanPhamChiTiet(rs.getLong("ID"), rs.getString("MaCTSP"), rs.getInt("SoLuongTon"), rs.getBigDecimal("GiaBan"), rs.getBigDecimal("GiaNiemYet"), rs.getInt("TrangThai"), rs.getString("MoTa"), mauSac, kichThuoc, thuongHieu, sanPham);
+                listSearch.add(sanPhamChiTiet);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listSearch;
+    }
+
     public List<SanPhamChiTiet> get(int page, int limt) {
         List<SanPhamChiTiet> list = new ArrayList<>();
         String sql = "SELECT CTSP.ID, CTSP.MaCTSP, SP.TenSP, TH.TenThuongHieu, S.TenSize, M.TenMau, CTSP.SoLuongTon, CTSP.GiaBan, CTSP.GiaNiemYet, CTSP.MoTa, CTSP.TrangThai\n"
