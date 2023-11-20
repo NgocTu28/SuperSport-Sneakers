@@ -15,7 +15,20 @@ import Repository.MauSac_Reponsitory;
 import Repository.SanPhamCT_Repository;
 import Repository.SanPham_Repository;
 import Repository.ThuongHieu_Repository;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import static com.github.sarxos.webcam.WebcamUtils.capture;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
 import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -24,9 +37,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.management.Notification;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +49,9 @@ import javax.swing.table.TableModel;
 import pro1041.team_3.swing.jnafilechooser.api.JnaFileChooser;
 import raven.application.Application;
 import raven.toast.Notifications;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -42,7 +60,7 @@ import raven.toast.Notifications;
 public class Form_SanPhamChiTiet extends javax.swing.JPanel {
 
     SanPham_Repository sanPham_Repository = new SanPham_Repository();
-
+    public static SanPhamChiTiet spct = new SanPhamChiTiet();
     MauSac_Reponsitory mauSac_Reponsitory = new MauSac_Reponsitory();
     KichThuoc_Repository kichThuoc_Repository = new KichThuoc_Repository();
     ThuongHieu_Repository hieu_Repository = new ThuongHieu_Repository();
@@ -51,13 +69,19 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
     private static SanPhamCT_Repository sanPhamCT_Repository = new SanPhamCT_Repository();
     private static int page = 1;
     private static int gioiHanPage = (int) ((Math.ceil(sanPhamCT_Repository.getRowCount() / 4)) + 1);
-
+    private static giayChiTiet_Impl chiTiet_Impl = new giayChiTiet_Impl();
     private DefaultComboBoxModel model = new DefaultComboBoxModel();
     private DefaultComboBoxModel model1 = new DefaultComboBoxModel();
     private DefaultComboBoxModel model2 = new DefaultComboBoxModel();
     private DefaultComboBoxModel model3 = new DefaultComboBoxModel();
 
-    private static giayChiTiet_Impl chiTiet_Impl = new giayChiTiet_Impl();
+    JPanel jpnWebcam = new JPanel();
+    JDialog dlScanQr = new JDialog();  // Hoặc khởi tạo theo cách phù hợp
+
+    //Scan QR
+    private Webcam webcam;
+    private WebcamPanel webcamPanel;
+    private Thread thread;
 
     public Form_SanPhamChiTiet() {
         initComponents();
@@ -67,6 +91,10 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
         fillToCboThuongHieu();
         listSanPhamChiTiet = sanPhamCT_Repository.get(page, 4);
         fillToTable(listSanPhamChiTiet);
+        ImageIcon iconDialog = new ImageIcon("E:\\Fpoly\\Snaker\\SuperSport-Sneakers\\Application\\Nhom4_SuperSportSneakers\\src\\raven\\icon\\png/logo3.png");
+        ImageIcon iconDialogThem = new ImageIcon("E:\\Fpoly\\Snaker\\SuperSport-Sneakers\\Application\\Nhom4_SuperSportSneakers\\src\\raven\\icon\\pngaddUser.png");
+        dlScanQr.setTitle("Scan QR");
+        dlScanQr.setIconImage(iconDialog.getImage());
     }
 
     public void fillToTable(List<SanPhamChiTiet> listSanPhamChiTiet) {
@@ -269,6 +297,7 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
         jButton16 = new javax.swing.JButton();
         soTrang = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jButton5.setBackground(new java.awt.Color(0, 0, 0));
         jButton5.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
@@ -393,16 +422,15 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(cboTrangThai, 0, 0, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtGiaBan1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtGiaBan, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSoLuong, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbo_TenSP, javax.swing.GroupLayout.Alignment.LEADING, 0, 239, Short.MAX_VALUE)
-                    .addComponent(txt_MaSPCT, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(15, 15, 15)
+                    .addComponent(txt_MaSPCT, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboTrangThai, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
                 .addComponent(btnAdd_MauSac1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -485,7 +513,7 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
                             .addComponent(btnAdd_Hang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -665,6 +693,15 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel10.setText("Danh sách sản phẩm chi tiết");
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/qr-code_9460284.png"))); // NOI18N
+        jButton1.setText("SCAN QR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -689,19 +726,20 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(cboLocTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addComponent(cboLocTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnLui, btnNext, jButton13, jButton16, soTrang});
@@ -709,14 +747,15 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(cboLocTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -882,11 +921,11 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
 
             txtMoTa.setText((String) tblSanPhamCT.getValueAt(index, 9).toString());
 
-            if (tblSanPhamCT.getValueAt(index, 8).equals("Còn Hàng")) {
+            if (tblSanPhamCT.getValueAt(index, 8).equals("CÒN HÀNG")) {
                 cboTrangThai.setSelectedIndex(0);
-            } else if (tblSanPhamCT.getValueAt(index, 8).equals("Tạm Hết")) {
+            } else if (tblSanPhamCT.getValueAt(index, 8).equals("TẠM HẾT")) {
                 cboTrangThai.setSelectedIndex(1);
-            } else if (tblSanPhamCT.getValueAt(index, 8).equals("Dừng Bán")) {
+            } else if (tblSanPhamCT.getValueAt(index, 8).equals("DỪNG BÁN")) {
                 cboTrangThai.setSelectedIndex(2);
             }
         }
@@ -1055,14 +1094,109 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
         if (cboLocTrangThai.getSelectedIndex() == 0) {
             List<SanPhamChiTiet> listSearch = sanPhamCT_Repository.searchTrangThai_SanPhamChiTiet(0);
             fillToTable(listSearch);
-        } else if (cboLocTrangThai.getSelectedIndex() == 1){
-             List<SanPhamChiTiet> listSearch = sanPhamCT_Repository.searchTrangThai_SanPhamChiTiet(1);
-             fillToTable(listSearch);
-        }else if (cboLocTrangThai.getSelectedIndex() == 2){
-             List<SanPhamChiTiet> listSearch = sanPhamCT_Repository.searchTrangThai_SanPhamChiTiet(2);
-             fillToTable(listSearch);
+        } else if (cboLocTrangThai.getSelectedIndex() == 1) {
+            List<SanPhamChiTiet> listSearch = sanPhamCT_Repository.searchTrangThai_SanPhamChiTiet(1);
+            fillToTable(listSearch);
+        } else if (cboLocTrangThai.getSelectedIndex() == 2) {
+            List<SanPhamChiTiet> listSearch = sanPhamCT_Repository.searchTrangThai_SanPhamChiTiet(2);
+            fillToTable(listSearch);
         }
     }//GEN-LAST:event_cboLocTrangThaiActionPerformed
+
+    private void initWebcam() {
+        Dimension d = new Dimension(1920, 1080);
+        webcam = Webcam.getWebcams().get(0);
+        webcam.setCustomViewSizes(new Dimension[]{d});
+        webcam.setViewSize(d);
+
+        webcamPanel = new WebcamPanel(webcam);
+        webcamPanel.setPreferredSize(d);
+        webcamPanel.setFPSDisplayed(true);
+        webcamPanel.setVisible(true);
+        webcamPanel.setDisplayDebugInfo(true);
+        webcamPanel.setImageSizeDisplayed(true);
+        webcamPanel.setMirrored(true);
+        System.out.println("1119 chạy  :");
+        if (jpnWebcam != null && jpnWebcam.getParent() != null) {
+            System.out.println("1121 ko  :");
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    jpnWebcam.getParent().revalidate();
+                    jpnWebcam.getParent().repaint();
+                }
+            });
+        }
+
+        jpnWebcam.add(webcamPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 300));
+
+    }
+
+    private void captureThread() {
+        thread = new Thread() {
+            @Override
+            public void run() {
+                do {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    Result result = null;
+                    BufferedImage image = null;
+
+                    if (webcam.isOpen()) {
+                        if ((image = webcam.getImage()) == null) {
+                            continue;
+                        }
+                    }
+                    LuminanceSource source = new BufferedImageLuminanceSource(image);
+                    BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+                    try {
+                        result = new MultiFormatReader().decode(bitmap);
+                        System.out.println("1156 :");
+                    } catch (NotFoundException ex) {
+                        ex.printStackTrace();
+                        continue;
+                    }
+                    if (result != null) {
+                        String resultText = result.getText();
+                        String[] arrResult = resultText.split("\\n");
+                        System.out.println(arrResult[1]);
+                        txtSearch.setText(arrResult[1].substring(6));
+                        dlScanQr.setVisible(false);
+                        searchSanPham();
+                        webcam.close();
+                        thread.stop();
+                        System.out.println("1170 :");
+                    }
+
+                } while (true);
+            }
+        };
+        thread.setDaemon(true);
+        thread.start();
+        System.out.println("1178 :");
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // BTN Scan QR
+        if (webcam != null) {
+            System.out.println("1184 web ko null :");
+            if (webcam.isOpen()) {
+                System.out.println("1184 web mo :");
+                webcam.close();
+                thread.stop();
+                dlScanQr.setVisible(false);
+            }
+        }
+        System.out.println("``92 ");
+        initWebcam();
+        captureThread();
+        dlScanQr.setVisible(true);
+        dlScanQr.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1086,6 +1220,7 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cboMauSac;
     private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JComboBox<String> cbo_TenSP;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton16;
@@ -1123,4 +1258,45 @@ public class Form_SanPhamChiTiet extends javax.swing.JPanel {
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txt_MaSPCT;
     // End of variables declaration//GEN-END:variables
+
+    private void searchSanPham() {
+        String keyWord = (String) txtSearch.getText();
+        if (keyWord.isEmpty() || keyWord == null) {
+            return;
+        }
+        if (!keyWord.matches("\\d+")) {
+            //****************alert mới
+//            Notification panel = new Notification((JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this), Notification.Type.WARNING, Notification.Location.TOP_CENTER, "Vui lòng nhập IMEI của điện thoại");
+//            panel.showNotification();
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập IMEI của điện thoại");
+            return;
+        }
+        SanPhamChiTiet result = (SanPhamChiTiet) sanPhamCT_Repository.search_SanPhamChiTiet(keyWord);
+        if (result == null) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy");
+            return;
+        }
+
+        cbo_TenSP.setSelectedItem(result.getIdSanPham().getTenSanpham());
+        txt_MaSPCT.setText(result.getMaSPCT());
+        String soLuong = String.valueOf(result.getSoLuong());
+        txtSoLuong.setText(soLuong);
+        String giaBan = result.getGiaBan().toString();
+        txtGiaBan.setText(giaBan);
+        String giaBan1 = result.getGiaNiemYet().toString();
+        txtGiaBan1.setText(giaBan1);
+        if (result.getTrangThai() == 0) {
+            cboTrangThai.setSelectedIndex(0);
+        } else if (result.getTrangThai() == 1) {
+            cboTrangThai.setSelectedIndex(1);
+        } else if (result.getTrangThai() == 2) {
+            cboTrangThai.setSelectedIndex(2);
+        }
+        cboMauSac.setSelectedItem(result.getIdMau().getTenMau());
+        cboKichThuoc.setSelectedItem(result.getIdKichThuoc().getTenSize());
+        cboHang.setSelectedItem(result.getIdThuongHieu().getTenThuongHieu());
+        txtMoTa.setText(result.getMoTa());
+        spct = result;
+    }
+
 }
