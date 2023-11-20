@@ -1,4 +1,4 @@
-﻿CREATE  DATABASE SuperSportSneakers
+﻿---CREATE  DATABASE SuperSportSneakers
 GO
 USE SuperSportSneakers
 GO
@@ -134,8 +134,8 @@ CREATE TABLE DOT_GIAM_GIA
 	IdNV BIGINT NOT NULL,
 	MaDGG VARCHAR(10)  NULL ,
 	TenDGG NVARCHAR(100) NULL,
-	Loai BIT  NULL ,--- 0 LÀ % 1 LÀ VND
-	GiaTri int NULL,
+	Loai INT  NULL ,--- 0 LÀ % 1 LÀ VND
+	GiaTri FLOAT NULL, --=> ++=> sửa lại thành FLoat
 	NgayBatDau DATETIME NULL,
 	NgayKetThuc DATETIME NULL,
 	MoTa NVARCHAR(250) NULL,
@@ -144,6 +144,10 @@ CREATE TABLE DOT_GIAM_GIA
 	CONSTRAINT PK_DOT_GIAM_GIA PRIMARY KEY (ID),
 	CONSTRAINT FK_DOT_GIAM_GIA_NHANVIEN FOREIGN KEY (IdNV) REFERENCES NHANVIEN (ID)
 )
+
+
+
+
 SELECT * FROM DOT_GIAM_GIA
 --- THEM ĐỢT GIẢM GIÁ 
 -- Thêm 10 bản ghi giả mạo vào bảng DOT_GIAM_GIA
@@ -194,7 +198,33 @@ VALUES
 (2, 2, 2, 2, 'CTSP0002', 30, 1100000.00, 1100000.00, N'Mô tả CTSP', GETDATE(), 0),
 (3, 3, 3, 3, 'CTSP0003', 20, 1000000.00, 1000000.00, N'Mô tả CTSP', GETDATE(), 0),
 (4, 4, 4, 4, 'CTSP0004', 25, 1050000.00, 1050000.00, N'Mô tả CTSP', GETDATE(), 0),
-(5, 5, 5, 5, 'CTSP0005', 40, 1150000.00, 1150000.00, N'Mô tả CTSP', GETDATE(), 0);
+(5, 5, 5, 5, 'CTSP0005', 40, 1150000.00, 1150000.00, N'Mô tả CTSP', GETDATE(), 0),
+(5, 1, 2, 3, 'CTSP0006', 55, 1300000.00, 1300000.00, N'Mô tả CTSP', GETDATE(), 0),
+(4, 2, 3, 4, 'CTSP0007', 35, 1250000.00, 1250000.00, N'Mô tả CTSP', GETDATE(), 0),
+(3, 3, 4, 6, 'CTSP0008', 40, 1180000.00, 1180000.00, N'Mô tả CTSP', GETDATE(), 0),
+(2, 4, 5, 1, 'CTSP0009', 30, 1100000.00, 1100000.00, N'Mô tả CTSP', GETDATE(), 0),
+(1, 5, 1, 2, 'CTSP0010', 25, 1050000.00, 1050000.00, N'Mô tả CTSP', GETDATE(), 0),
+(2, 1, 2, 3, 'CTSP0011', 60, 1400000.00, 1400000.00, N'Mô tả CTSP', GETDATE(), 0),
+(3, 2, 3, 10, 'CTSP0012', 45, 1350000.00, 1350000.00, N'Mô tả CTSP', GETDATE(), 0),
+(4, 3, 4, 8, 'CTSP0013', 50, 1200000.00, 1200000.00, N'Mô tả CTSP', GETDATE(), 0),
+(5, 4, 5, 7, 'CTSP0014', 38, 1120000.00, 1120000.00, N'Mô tả CTSP', GETDATE(), 0),
+(1, 5, 1, 2, 'CTSP0015', 42, 1150000.00, 1150000.00, N'Mô tả CTSP', GETDATE(), 0),
+(3, 1, 2, 3, 'CTSP0016', 48, 1220000.00, 1220000.00, N'Mô tả CTSP', GETDATE(), 0),
+(4, 2, 3, 9, 'CTSP0017', 32, 1280000.00, 1280000.00, N'Mô tả CTSP', GETDATE(), 0),
+(5, 3, 4, 5, 'CTSP0018', 28, 1150000.00, 1150000.00, N'Mô tả CTSP', GETDATE(), 0),
+(1, 4, 5, 8, 'CTSP0019', 22, 1100000.00, 1100000.00, N'Mô tả CTSP', GETDATE(), 0),
+(2, 5, 1, 6, 'CTSP0020', 65, 1380000.00, 1380000.00, N'Mô tả CTSP', GETDATE(), 0),
+(2, 1, 2, 3, 'CTSP0021', 48, 1220000.00, 1220000.00, N'Mô tả CTSP', GETDATE(), 0),
+(1, 2, 3, 9, 'CTSP0022', 32, 1280000.00, 1280000.00, N'Mô tả CTSP', GETDATE(), 0),
+(5, 3, 4, 5, 'CTSP0023', 28, 1150000.00, 1150000.00, N'Mô tả CTSP', GETDATE(), 0),
+(4, 4, 5, 8, 'CTSP0024', 22, 1100000.00, 1100000.00, N'Mô tả CTSP', GETDATE(), 0),
+(3, 5, 1, 6, 'CTSP0025', 65, 1380000.00, 1380000.00, N'Mô tả CTSP', GETDATE(), 0),
+(3, 1, 2, 4, 'CTSP0026', 48, 1220000.00, 1220000.00, N'Mô tả CTSP', GETDATE(), 0),
+(4, 2, 3, 6, 'CTSP0027', 32, 1280000.00, 1280000.00, N'Mô tả CTSP', GETDATE(), 0),
+(5, 3, 4, 10, 'CTSP0028', 28, 1150000.00, 1150000.00, N'Mô tả CTSP', GETDATE(), 0),
+(1, 4, 5, 10, 'CTSP0029', 22, 1100000.00, 1100000.00, N'Mô tả CTSP', GETDATE(), 0),
+(2, 5, 1, 7, 'CTSP0023', 65, 1380000.00, 1380000.00, N'Mô tả CTSP', GETDATE(), 0);
+
 SELECT * FROM CHI_TIET_SAN_PHAM
 
 -- ++++++ BẢNG THÊN MỚI
@@ -248,6 +278,7 @@ CREATE TABLE KHACHHANG
 -- Thêm 10 khách hàng giả mạo vào bảng KHACHHANG
 INSERT INTO KHACHHANG (IdNV, MaKhachHang, TenKhachHang, SDT, NgaySinh, Email, GioiTinh, DiaChi, Diem, CapBac, NgayTao, TrangThai)
 VALUES 
+(1, 'KH000', N'Khách bán lẻ', '....', '1990-05-20', '...', 0, N'....', 0, 3, GETDATE(), 1),
 (1, 'KH001', N'Nguyễn Thị Ánh', '0901234567', '1990-05-20', 'manh@gmail.com', 0, N'123 Đường ABC, Quận XYZ', 100, 2, GETDATE(), 1),
 (2, 'KH002', N'Trần Văn Bình', '0912345678', '1985-08-10', 'manh@gmail.com', 1, N'456 Đường DEF, Quận LMN', 50, 1, GETDATE(), 1),
 (3, 'KH003', N'Phạm Minh Châu', '0923456789', '1992-12-25', 'manh@gmail.com', 1, N'789 Đường GHI, Quận OPQ', 200, 2, GETDATE(), 1),
@@ -259,11 +290,6 @@ VALUES
 (9, 'KH009', N'Trương Hoàng I', '0989012345', '1993-06-22', 'manh@gmail.com', 1, N'606 Đường XYZ, Quận ABC', 60, 1, GETDATE(), 1),
 (10, 'KH010', N'Vũ Thị Kiều', '0990123456', '1996-09-15', 'manh@gmail.com', 0, N'707 Đường ABC, Quận DEF', 130, 2, GETDATE(), 1);
 
-
-
-
-SELECT * FROM KHACHHANG
-
 --- PHIEU GIAM GIA
 IF OBJECT_ID('PHIEU_GIAM_GIA') IS NOT NULL
 	DROP TABLE PHIEU_GIAM_GIA
@@ -274,17 +300,19 @@ CREATE TABLE PHIEU_GIAM_GIA
 	MaPhieu NVARCHAR(20) NULL ,
 	TenPhieu NVARCHAR(100) NULL,
 	LoaiPhieu BIT NULL , -- 0 LÀ % , 1 VND
-	GiaTri BIGINT NULL , -- ÁNH XẠ JAVA => Long
+	GiaTri FLOAT NULL ,-- ++=> sửa lại thành FLoat
 	SoLuongPhieu INT NULL,
-	DonToiThieu MONEY NULL , --- ÁNH XẠ JAVA => BigDecimal
+	DonToiThieu FLOAT NULL , --- ÁNH XẠ JAVA => BigDecimal
 	NgayBatDau DATETIME NULL,
 	NgayKetThuc DATETIME NULL,
 	NgayTao DATE DEFAULT GETDATE(),
 	MoTa NVARCHAR(250) NULL,
-	TrangThai INT NULL , -- 0 SẮP ĐẾN , 1 ĐANG DIỄN RA , 2 ĐÃ KẾT THÚC , 3 ĐANG ĐỢI (TẦM MẤY THÁNG MỚI ĐẾN)
+	TrangThai INT DEFAULT 0 NULL , -- 0 SẮP ĐẾN , 1 ĐANG DIỄN RA , 2 ĐÃ KẾT THÚC , 3 ĐANG ĐỢI (TẦM MẤY THÁNG MỚI ĐẾN)
 	CONSTRAINT PK_PHIEU_GIAM_GIA PRIMARY KEY (ID),
 	CONSTRAINT FK_PHIEU_GIAM_GIA_NHANVIEN FOREIGN KEY (IdNV) REFERENCES NHANVIEN (ID)
 )
+
+
 -- Thêm 10 phiếu giảm giá giả mạo vào bảng PHIEU_GIAM_GIA
 INSERT INTO PHIEU_GIAM_GIA (IdNV, MaPhieu, TenPhieu, LoaiPhieu, GiaTri, SoLuongPhieu, DonToiThieu, NgayBatDau, NgayKetThuc, MoTa, TrangThai)
 VALUES 
@@ -311,24 +339,34 @@ CREATE TABLE HOADON
 	IdNV BIGINT NOT NULL,
 	IdKH BIGINT NOT NULL,
 	MaHoaDon VARCHAR(20) NOT NULL,------------ THÊM CẤP BẬC Ở ĐÂY
-	CapBac INT NULL,-- LƯU CẤP BẬC TẠI THỜI ĐIỂM TT
-	PhanTramGia INT NULL , --- CẤP BẬC + PHIẾU THEO %
-	TienPhieuGiam MONEY NULL ,-- TIỀN GIẢM THEO PHIẾU VND
-	DiemDoi INT NULL, -- tiền khách hàng từ đó lấy ra tiền 1 diem = 10k
-	PhuongThucTT int , -- 0 là tại quầy , 1 chuyển khoản ,2  có thể làm kết hợp 2 loại(Có thể bỏ)
-	TienKhDua MONEY NULL,
-	TienKhChuyenKhoan MONEY NULL,
-	TienThua MONEY NULL,
-	ThanhTien MONEY NULL,
-	NgayTao DATE DEFAULT GETDATE(),
+	CapBac INT DEFAULT 0,-- LƯU CẤP BẬC TẠI THỜI ĐIỂM TT
+	PhanTramGia FLOAT DEFAULT 0 , --- CẤP BẬC + PHIẾU THEO % +=> //	PhanTramGia INT NULL , --- CẤP BẬC + PHIẾU THEO % ++ Doi thanh FLoat
+	TienPhieuGiam FLOAT DEFAULT 0 ,-- TIỀN GIẢM THEO PHIẾU VND
+	DiemDoi FLOAT DEFAULT 0, -- tiền khách hàng từ đó lấy ra tiền 1 diem = 10k 
+	-- +=> //	DiemDoi INT NULL, -- tiền khách hàng từ đó lấy ra tiền 1 diem = 10k => MONEY
+	PhuongThucTT INT DEFAULT 0 , -- 0 là tại quầy , 1 chuyển khoản ,2  có thể làm kết hợp 2 loại(Có thể bỏ)
+	TienKhDua FLOAT DEFAULT 0,
+	TienKhChuyenKhoan FLOAT DEFAULT 0 ,
+	TienThua FLOAT DEFAULT 0,
+	ThanhTien FLOAT DEFAULT 0,
+	HinhThucMua BIT DEFAULT 0,
+	NgayTao DATETIME DEFAULT GETDATE(),
 	NgayThanhToan DATETIME NULL,
-	TrangThai INT NULL , -- 0 CHƯA THANH TOÁN , 1 ĐÃ THANH TOÁN , 2 ĐANG GIAO , 3 THANH TOÁN TRƯỚC 
+	TrangThai INT  DEFAULT 0, -- 0 CHƯA THANH TOÁN , 1 ĐÃ THANH TOÁN , 2 ĐANG GIAO , 3 THANH TOÁN TRƯỚC ++ để default o
 	CONSTRAINT PK_HOADON PRIMARY KEY (ID),
 	CONSTRAINT FK_HOADON_PHIEU_GIAM_GIA FOREIGN KEY (IdPGG) REFERENCES PHIEU_GIAM_GIA(ID) ,
 	CONSTRAINT FK_HOADON_NHANVIEN FOREIGN KEY (IdNV) REFERENCES NHANVIEN (ID),
 	CONSTRAINT FK_HOADON_KHACHHANG FOREIGN KEY (IdKH) REFERENCES KHACHHANG (ID),
 )
 
+
+
+---- Thêm cột HinhThucMua kiểu dữ liệu BIT với giá trị NULL vào bảng HOADON
+--ALTER TABLE HOADON
+--ADD HinhThucMua BIT DEFAULT 0 ; -- 0 LÀ TẠI QUẦY 1 ONLINE
+
+--UPDATE HOADON
+--SET HinhThucMua = 0
 -- Thêm 10 hóa đơn giả mạo không có đợt giảm giá và phiếu giảm giá
 INSERT INTO HOADON (IdPGG, IdNV, IdKH, MaHoaDon, CapBac, PhanTramGia, TienPhieuGiam, DiemDoi, PhuongThucTT, TienKhDua, TienKhChuyenKhoan, TienThua, ThanhTien, NgayTao, NgayThanhToan, TrangThai)
 VALUES 
@@ -342,6 +380,8 @@ VALUES
 (NULL, 8, 8, 'HD008', 0, NULL, NULL, NULL, 0, 1900000, NULL, NULL, 1900000, GETDATE(), '2023-11-08T21:15:00', 1),
 (NULL, 9, 9, 'HD009', 0, NULL, NULL, NULL, 0, 1700000, NULL, NULL, 1700000, GETDATE(), '2023-11-09T22:00:00', 1),
 (NULL, 10, 10, 'HD010', 0, NULL, NULL, NULL, 0, 2100000, NULL, NULL, 2100000, GETDATE(), '2023-11-10T23:30:00', 1);
+	UPDATE HOADON
+	SET PhanTramGia = 0 , TienPhieuGiam = 0 , DiemDoi = 0, TienKhChuyenKhoan =0 , TienThua =0
 
 SELECT * FROM HOADON
 
@@ -357,17 +397,42 @@ CREATE TABLE HOADONCHITIET
 	IdCTSP BIGINT NOT NULL,
 	SoLuong INT NULL,
 	MaDGG VARCHAR(10)  NULL ,
-	LoaiDGG BIT NULL,
+	LoaiDGG INT NULL,
 	GiaTriDGG INT  NULL,
-	QuyDoiDGGTT MONEY NULL , -- => ĐỀU QUY RA THÀNH vnd THEO SẢN PHẨM
-	GiaBan MONEY NULL,
-	DonGia MONEY NULL,
+	QuyDoiDGGTT FLOAT NULL , -- => ĐỀU QUY RA THÀNH vnd THEO SẢN PHẨM
+	GiaBan FLOAT NULL,
+	DonGia FLOAT NULL,
+	ThanhTien FLOAT NULL,
 	NgayTao DATETIME DEFAULT GETDATE(),
 	TrangThai INT NULL ,
 	CONSTRAINT PK_HOADONCHITIET PRIMARY KEY (ID),
 	CONSTRAINT FK_HOADONCHITIET_HOADON FOREIGN KEY (IdHoaDon) REFERENCES HOADON  (ID),
 	CONSTRAINT FK_HOADONCHITIET_CHI_TIET_SAN_PHAM FOREIGN KEY (IdCTSP) REFERENCES CHI_TIET_SAN_PHAM (ID)
 )
+UPDATE HOADONCHITIET
+SET ThanhTien = SoLuong * GiaBan;
+select * from HOADONCHITIET
+
+ALTER TABLE HOADONCHITIET
+ALTER COLUMN TrangThai INT SoLuong 0;
+
+ALTER TABLE HOADONCHITIET
+ALTER COLUMN SoLuong SET DEFAULT 0,
+ALTER COLUMN LoaiDGG SET DEFAULT 0,
+ALTER COLUMN GiaTriDGG SET DEFAULT 0,
+ALTER COLUMN QuyDoiDGGTT SET DEFAULT 0.0,
+ALTER COLUMN GiaBan SET DEFAULT 0.0,
+ALTER COLUMN DonGia SET DEFAULT 0.0,
+ALTER COLUMN ThanhTien SET DEFAULT 0.0,
+ALTER COLUMN TrangThai SET DEFAULT 1;
+
+--ALTER TABLE HOADONCHITIET
+--ADD LoaiDGG_INT INT NULL;
+
+---- Cập nhật dữ liệu từ cột BIT sang cột INT
+--UPDATE HOADONCHITIET
+--SET LoaiDGG = CONVERT(INT, LoaiDGG);
+
 INSERT INTO HOADONCHITIET (IdHoaDon, IdCTSP, SoLuong, MaDGG, LoaiDGG, GiaTriDGG, QuyDoiDGGTT, GiaBan, DonGia, NgayTao, TrangThai)
 VALUES 
 (1, 1, 2, NULL, NULL, NULL, 0, 750000, 375000, GETDATE(), 1),
@@ -404,7 +469,7 @@ CREATE TABLE PHIEUGIAOHANG
 	DiaChi NVARCHAR(100)  NULL,
 	TenShip NVARCHAR(50)  NULL,
 	SDTShip VARCHAR(15)  NULL,
-	GiaShip MONEY NULL , ---->ÁNH XẠ JAVA => BigDecimal
+	GiaShip FLOAT NULL , ---->ÁNH XẠ JAVA => BigDecimal
 	NgayTaoPhieu DATETIME DEFAULT GETDATE(),
 	MaVanDon VARCHAR(20) NULL,
 	ĐonViVanChuyen NVARCHAR(100) NULL,
@@ -463,6 +528,12 @@ VALUES
 
 
 
+
+
+
+
+
+
 select * from CHI_TIET_SAN_PHAM
 SELECT * FROM CHI_TIET_PHIEU_GIAO
 
@@ -470,57 +541,459 @@ SELECT * FROM KHACHHANG
 
 SELECT * FROM NHANVIEN
 
---SELECT KH.ID, IdNV , MaKhachHang , TenKhachHang , KH.SDT AS SDT_KH  ,KH.NgaySinh AS NGAYSINH_KH , GioiTinh , KH.DiaChi AS DIACHI_KH , Diem , CapBac, KH.TrangThai AS TRANGTHAI_KH from KHACHHANG AS  KH
---JOIN NHANVIEN AS NV ON KH.IdNV = NV.ID
+SELECT KH.ID, IdNV , MaKhachHang , TenKhachHang , KH.SDT AS SDT_KH  ,KH.NgaySinh AS NGAYSINH_KH , GioiTinh , KH.DiaChi AS DIACHI_KH , Diem , CapBac, KH.TrangThai AS TRANGTHAI_KH from KHACHHANG AS  KH
+JOIN NHANVIEN AS NV ON KH.IdNV = NV.ID
 
------ THIEU EMAIL
+--- THIEU EMAIL
 
---SELECT ID, MaKhachHang , TenKhachHang  , SDT , GioiTinh , NgaySinh , DiaChi , Diem , CapBac FROM KHACHHANG 
+SELECT ID, MaKhachHang , TenKhachHang  , SDT , GioiTinh , NgaySinh , DiaChi , Diem , CapBac FROM KHACHHANG 
 
---SELECT ID, MaKhachHang , TenKhachHang  , SDT , GioiTinh , NgaySinh , DiaChi , Diem , CapBac FROM KHACHHANG 
---WHERE MaKhachHang LIKE '' OR TenKhachHang LIKE '' OR SDT LIKE  ''
+SELECT ID, MaKhachHang , TenKhachHang  , SDT , GioiTinh , NgaySinh , DiaChi , Diem , CapBac FROM KHACHHANG 
+WHERE MaKhachHang LIKE '' OR TenKhachHang LIKE '' OR SDT LIKE  ''
 
---SELECT hd.MaHoaDon , HD.NgayThanhToan , HD.ThanhTien , HD.TrangThai  FROM HOADON AS HD 
---JOIN KHACHHANG AS KH  ON HD.IdKH = KH.ID 
---WHERE KH.MaKhachHang LIKE 'KH001'
+SELECT hd.MaHoaDon , HD.NgayThanhToan , HD.ThanhTien , HD.TrangThai  FROM HOADON AS HD 
+JOIN KHACHHANG AS KH  ON HD.IdKH = KH.ID 
+WHERE KH.MaKhachHang LIKE 'KH000'
 
---SELECT * FROM KHACHHANG
+
+SELECT HD.ID AS ID , HD.MaHoaDon AS MaHoaDon , hd.NgayThanhToan AS NgayThanhToan ,
+                   	HD.ThanhTien AS ThanhTien , HD.TrangThai AS TrangThai , 
+                 	HD.DiemDoi AS DiemDoi , HD.CapBac AS CapBac   FROM HOADON AS HD
+                  	JOIN KHACHHANG ON KHACHHANG.ID = HD.IdKH
+                   WHERE MaKhachHang = 'KH000' 
+
+SELECT * FROM KHACHHANG
 
 ---  CÓ THỂ CHỈNH GIỚI TÍNH THÀNH INT  , THIẾU TRƯỜNG EMAIL trong kh
 --- THÊM CẤP BẬC CHO HÓA ĐƠN
 --- SỬA LẠI BẢNG ĐỢT GIẢM GIÁ THÊM BẢNG ĐỂ LƯU ĐƯỢC SP ÁP DỤNG CHO SP NÀO TẠI THỜI GIAN NÀO 
 --- VÌ SAU KHI HẾT ĐỢT GIẢM GIÁ THÌ SẼ XÓA KHÓA NGOẠI ĐI NÊN SẼ KO LƯU ĐƯỢC LỊCH SỬ ÁP DỤNG CHO TỪNG SẢN PHẨM 
---SELECT * FROM
---    (SELECT ROW_NUMBER() OVER (ORDER BY ID) AS rownum,  * FROM KHACHHANG)
---    AS temp
---    WHERE rownum BETWEEN 1 AND 5
+SELECT * FROM
+    (SELECT ROW_NUMBER() OVER (ORDER BY ID) AS rownum,  * FROM KHACHHANG)
+    AS temp
+    WHERE rownum BETWEEN 1 AND 5
 
---	----INSERT INTO KHACHHANG (MaKhachHang , TenKhachHang, SDT , DiaChi , GioiTinh , NgaySinh ) VALUES 
---	---(? , ? , ? ,? ,? , ?)
+	----INSERT INTO KHACHHANG (MaKhachHang , TenKhachHang, SDT , DiaChi , GioiTinh , NgaySinh ) VALUES 
+	---(? , ? , ? ,? ,? , ?)
 
 
---	SELECT ID , TenKhachHang , SDT , DiaChi FROM
---    (SELECT ROW_NUMBER() OVER (ORDER BY ID) AS rownum,  * FROM KHACHHANG)
---	AS temp WHERE rownum BETWEEN ? AND ?
+	--SELECT ID , TenKhachHang , SDT , DiaChi FROM
+ --   (SELECT ROW_NUMBER() OVER (ORDER BY ID) AS rownum,  * FROM KHACHHANG)
+	--AS temp WHERE rownum BETWEEN ? AND ?
 
---	select * from KHACHHANG 
---	order by ID OFFSET 4 ROWS FETCH NEXT 4 ROWS ONLY
---	SELECT COUNT(*) AS totalRows FROM KHACHHANG
+	select KH.ID as ID , NV.ID as IdNV , MaKhachHang , TenKhachHang , GioiTinh , KH.SDT as SDT  , KH.DiaChi as DiaChi, KH.Email as Email, KH.NgaySinh as NgaySinh , Diem , CapBac from KHACHHANG as KH
+	join NHANVIEN as NV on NV.ID = KH.IdNV
+	order by ID OFFSET 4 ROWS FETCH NEXT 4 ROWS ONLY
 
---	SELECT * FROM
---    (SELECT ROW_NUMBER() OVER (ORDER BY id) AS rownum,  * FROM KHACHHANG)
---    AS temp
---    WHERE rownum BETWEEN 6 AND 10
+	SELECT COUNT(*) AS totalRows FROM KHACHHANG
 
-	--select * from CHI_TIET_SAN_PHAM
-	--Select * From San
+	SELECT * FROM
+    (SELECT ROW_NUMBER() OVER (ORDER BY id) AS rownum,  * FROM KHACHHANG)
+    AS temp
+    WHERE rownum BETWEEN 6 AND 10
 
-	--select  CTSP.ID,CTSP.MaCTSP,SP.TenSP,TH.TenThuongHieu,S.TenSize,M.TenMau,CTSP.SoLuongTon, CTSP.GiaBan, CTSP.GiaNiemYet, CTSP.MoTa, CTSP.TrangThai , CTSP.ID as ID from CHI_TIET_SAN_PHAM as CTSP
- --               join MAU as M on M.ID = CTSP.IdMau
- --               join SIZE as S on S.ID = CTSP.IdSize
- --               join THUONGHIEU as TH on TH.ID = CTSP.IdThuongHieu
- --               join SANPHAM as SP on SP.ID = CTSP.IdSP
+	select * from CHI_TIET_SAN_PHAM
+	select * from NHANVIEN
 
- select * From CHI_TIET_SAN_PHAM
 
- Insert  into CHI_TIET_SAN_PHAM (IdSP,IdThuongHieu,IdMau,IdSize,MaCTSP,SoLuongTon,GiaNiemYet,GiaBan) Values (?,?,?,?,?,?,?,?)
+--update KHACHHANG
+--set TenKhachHang =N'Khách Bán Lẻ', CapBac = 3, SDT= N'Không có', DiaChi = '......', Email = '......', Diem = 0
+--where ID =1 
+SELECT CapBac FROM KHACHHANG
+select * from HOADON
+
+--update HOADON
+--set DiemDoi = 0
+	SELECT COUNT(*) AS totalRows FROM KHACHHANG
+
+	--INSERT INTO KHACHHANG ( IdNV ,  MaKhachHang , TenKhachHang, SDT, NgaySinh , GioiTinh, Email , DiaChi ) 
+	--VALUES (?,  ? , ?, ?, ? , ?, ? , ?);
+
+
+	--UPDATE KHACHHANG
+	--SET TenKhachHang = ?, SDT = ?, NgaySinh = ? , GioiTinh = ?, Email = ? , DiaChi = ?
+	--WHERE MaKhachHang LIKE ?
+	--select * from KHACHHANG
+
+	update KHACHHANG
+	set MaKhachHang = 'KH012' , Email = 'kh2@gmail.com'
+	where ID =2
+
+	SELECT * FROM HOADON
+
+	SELECT HD.ID AS ID , HD.MaHoaDon AS MaHoaDon , hd.NgayThanhToan AS NgayThanhToan , 
+	HD.ThanhTien AS ThanhTien , HD.TrangThai AS TrangThai , 
+	HD.DiemDoi AS DiemDoi , HD.CapBac AS CapBac   FROM HOADON AS HD
+	JOIN KHACHHANG ON KHACHHANG.ID = HD.IdKH
+	WHERE MaKhachHang = 'KH001'
+	order by ID OFFSET 0 ROWS FETCH NEXT 4 ROWS ONLY
+	
+
+	SELECT ID, IdNV, MaKhachHang , TenKhachHang  , SDT , GioiTinh , NgaySinh , Email , DiaChi , Diem , CapBac FROM KHACHHANG 
+    WHERE MaKhachHang LIKE '%K%' OR TenKhachHang LIKE '' OR SDT LIKE  ''
+	order by ID OFFSET 4 ROWS FETCH NEXT 4 ROWS ONLY
+
+	SELECT COUNT(*) AS totalRows FROM HOADON 
+	JOIN KHACHHANG ON KHACHHANG.ID = HOADON.IdKH
+	WHERE MaKhachHang = 'KH001'
+
+	select * from HOADON
+	select * from PHIEU_GIAM_GIA
+
+
+	SELECT CTSP.ID, CTSP.MaCTSP as  MaCTSP , SP.ID AS IdSP , SP.TenSP AS TenSP , S.ID AS IdSize , S.TenSize AS TenSize,
+	TH.ID AS IdTH , TH.TenThuongHieu AS TenThuongHieu , M.ID AS IdM , M.TenMau AS TenMau ,
+	SoLuongTon, GiaNiemYet , GiaBan
+	FROM CHI_TIET_SAN_PHAM AS CTSP
+	JOIN SANPHAM AS SP ON CTSP.IdSP = SP.ID
+	JOIN SIZE AS S ON CTSP.IdSize = S.ID
+	JOIN THUONGHIEU AS TH ON CTSP.IdThuongHieu =TH.ID
+	JOIN MAU AS M ON CTSP.IdMau = M.ID
+	WHERE CTSP.SoLuongTon > 0
+
+	UPDATE CHI_TIET_SAN_PHAM 
+	SET SoLuongTon = 1
+	WHERE ID =1
+
+	SELECT * FROM HOADON
+
+
+	SELECT COUNT(*) AS totalRows FROM HOADON
+
+	INSERT INTO HOADON(IdPGG , IdNV , IdKH, MaHoaDon) VALUES 
+	(NULL ,2 , 2 , 'HD23-11-15172210')
+
+
+	select * from HOADON
+	JOIN PHIEU_GIAM_GIA ON HOADON.IdPGG = PHIEU_GIAM_GIA.ID
+	where  PHIEU_GIAM_GIA.ID = 1
+
+	update HOADON
+	set IdPGG = 1
+	where ID = 1
+	select * from HOADONCHITIET
+
+	SELECT ID, IdSP , IdThuongHieu, IdMau, IdSize , IdDGG , MaCTSP , SoLuongTon , GiaNiemYet , GiaBan, MoTa , TrangThai FROM CHI_TIET_SAN_PHAM
+
+	update CHI_TIET_SAN_PHAM
+	set IdDGG =1
+	where ID =1
+
+	select * from HOADONCHITIET
+	SELECT * FROM CHI_TIET_SAN_PHAM
+	--INSERT INTO CHI_TIET_SAN_PHAM (IdSP, IdThuongHieu, IdMau, IdSize , IdDGG , MaCTSP , SoLuongTon , GiaNiemYet , GiaBan , MoTa) VALUES
+	--(?, ?, ?, ? , ? , ? , ? , ? , ? , ?)
+
+	--insert into  DOT_GIAM_GIA (IdNV , MaDGG , Loai, GiaTri , NgayBatDau , NgayKetThuc , MoTa)
+	--VALUES (? , ? , ?, ? , ? , ? , ?)
+
+	--INSERT INTO HOADONCHITIET (IdHoaDon, IdCTSP, SoLuong , MaDGG , LoaiDGG , GiaTriDGG ,  QuyDoiDGGTT , DonGia , GiaBan)
+	--VALUES (?, ?, ? , ? , ? , ? ,  ? , ? , ?)
+
+
+	SELECT CTSP.ID AS ID, IdSP , IdThuongHieu, IdMau, IdSize  , MaCTSP , SoLuongTon , GiaNiemYet , GiaBan, CTSP.MoTa AS ID , CTSP.TrangThai AS TrangThai ,
+	IdDGG , DGG.MaDGG AS MaDGG , DGG.Loai AS Loai , DGG.GiaTri AS GiaTri , DGG.TrangThai AS TrangThaiDGG
+	
+	FROM CHI_TIET_SAN_PHAM AS CTSP
+   LEFT JOIN DOT_GIAM_GIA AS DGG ON CTSP.IdDGG = DGG.ID
+	INSERT INTO HOADON  (IdNV , IdKH , MaHoaDon) VALUES 
+	(1 , 3, 'HD23-11-15235010')
+
+	
+	select * from HOADON
+	select * from DOT_GIAM_GIA
+
+	update DOT_GIAM_GIA
+	set TrangThai = 1 
+	where id =1
+
+	select * from CHI_TIET_SAN_PHAM
+
+	select * from HOADONCHITIET
+	where IdHoaDon = 12
+	select * from HOADON
+	where MaHoaDon like 'HD23-11-16005511'
+
+
+	SELECT CTSP.ID as ID , CTSP.MaCTSP as  MaCTSP , SP.ID AS IdSP , SP.TenSP AS TenSP , S.ID AS IdSize , S.TenSize AS TenSize,
+		TH.ID AS IdTH , TH.TenThuongHieu AS TenThuongHieu , M.ID AS IdM , M.TenMau AS TenMau ,
+		IdDGG , DGG.MaDGG AS MaDGG , DGG.Loai AS LoaiDGG , DGG.GiaTri AS GiaTriDGG , DGG.TrangThai AS TrangThaiDGG ,
+		SoLuongTon, GiaNiemYet , GiaBan
+	FROM CHI_TIET_SAN_PHAM AS CTSP
+		JOIN SANPHAM AS SP ON CTSP.IdSP = SP.ID
+		JOIN SIZE AS S ON CTSP.IdSize = S.ID
+		JOIN THUONGHIEU AS TH ON CTSP.IdThuongHieu =TH.ID
+		JOIN MAU AS M ON CTSP.IdMau = M.ID
+		LEFT JOIN DOT_GIAM_GIA  AS DGG ON CTSP.IdDGG = DGG.ID
+    WHERE CTSP.SoLuongTon > 0
+
+	update HOADON
+	set TrangThai = 3 , HinhThucMua =1
+	where id = 13
+
+	select * from CHI_TIET_SAN_PHAM
+	SELECT HinhThucMua FROM HOADON
+	INSERT INTO KHACHHANG (IdNV, MaKhachHang, TenKhachHang, SDT, NgaySinh, Email, GioiTinh, DiaChi, Diem, CapBac, NgayTao, TrangThai)
+VALUES 
+(1, 'KH011', N'Ngọc Tú', '0868819925', '2002-10-27', 'ntu@gmail.com',10, N'Hoa Bình', 0, 0, GETDATE(), 1)
+
+select * from HOADON
+
+
+
+					--SELECT 
+     --                HD.ID  AS IdHD , HD.MaHoaDon AS MaHoaDon  , HD.NgayTao AS NgayTao , HD.TrangThai AS TrangThaiHD ,
+     --                NV.ID AS IdNV , NV.HoVaTen AS TenNV , NV.MaNhanVien AS MaNhanVien , 
+     --                KH.ID AS IdKH , KH.TenKhachHang AS TenKH , KH.MaKhachHang AS  MaKhachHang ,
+
+					-- PGG.ID AS IdPGG , PGG.MaPhieu AS  MaPhieu , PGG.TenPhieu AS TenPhieu , PGG.GiaTri AS GiaTri  , PGG.LoaiPhieu AS  LoaiPhieu, PGG.SoLuongPhieu AS SoLuongPhieu  , PGG.DonToiThieu AS DonToiThieu  , PGG.TrangThai AS TrangThaiPGG
+     --               FROM HOADON AS HD
+					--LEFT JOIN KHACHHANG AS KH ON KH.ID = HD.IdKH 
+     --               LEFT JOIN NHANVIEN AS NV ON NV.ID = HD.IdNV
+					--LEFT JOIN PHIEU_GIAM_GIA AS PGG ON PGG.ID  = HD.IdPGG
+     --               WHERE HD.PhuongThucTT = 0 
+     --               ORDER BY HD.NgayTao DESC
+
+
+				 SELECT 
+                  HDCT.ID AS IdHDCT , HD.ID  AS IdHD , HD.MaHoaDon AS MaHoaDon  , HD.NgayTao AS NgayTao , HD.TrangThai AS TrangThaiHD , HD.CapBac AS CAPBAC , HD.PhanTramGia AS PhanTramGia, HD.TienPhieuGiam AS TienPhieuGiam , HD.DiemDoi AS DiemDoi , HD.PhuongThucTT AS PhuongThucTT , 
+				HD.NgayThanhToan AS NgayThanhToanHD,    HD.TienKhDua AS TienKhDua , HD.TienKhChuyenKhoan AS TienKhChuyenKhoan ,HD.TienThua AS TienThua , HD.ThanhTien AS ThanhTien , HD.HinhThucMua AS  HinhThucMua , HD.TrangThai AS TrangThaiHD ,
+				   CTSP.ID AS IdCTSP,CTSP.MaCTSP AS MaCTSP , CTSP.GiaBan AS GiaBan ,  CTSP.GiaNiemYet  AS GiaNiemYet,
+				   SP.ID AS IDSP ,SP.MaSP AS MASP , SP.TenSP AS TENSP ,
+				   DGG.ID AS IDDGG , DGG.MaDGG AS MADGG ,  DGG.TenDGG AS TENDGG , DGG.Loai AS LOAIDGG , DGG.GiaTri AS GIATRI , DGG.NgayBatDau AS NGAYBD , DGG.NgayKetThuc AS NGAYKT , DGG.MoTa AS MOTA , DGG.TrangThai TRANGTHAIDGG,
+				   NV.ID AS IdNV , NV.HoVaTen AS TenNV , NV.MaNhanVien AS MaNhanVien , 
+				  KH.ID AS IdKH , KH.TenKhachHang AS TenKH , KH.MaKhachHang AS  MaKhachHang ,
+				PGG.ID AS IdPGG , PGG.MaPhieu AS  MaPhieu , PGG.TenPhieu AS TenPhieu , PGG.GiaTri AS GiaTri  , PGG.LoaiPhieu AS  LoaiPhieu, PGG.SoLuongPhieu AS SoLuongPhieu  , PGG.DonToiThieu AS DonToiThieu  , PGG.TrangThai AS TrangThaiPGG ,
+				 HDCT.IdCTSP AS IdCTSP , HDCT.SoLuong AS SoLuongHDCT , HDCT.MaDGG AS MaDGGHDCT , HDCT.LoaiDGG AS LoaiGGHDCT , HDCT.GiaTriDGG AS GiaTriHDCT , HDCT.QuyDoiDGGTT AS QuyDoiDGGTT , HDCT.GiaBan AS GiaBanHDCT , HDCT.DonGia AS DonGiaHDCT  , HDCT.ThanhTien AS ThanhtIENHDCT
+              , S.TenSize , M.TenMau , TH.TenThuongHieu ,
+			  p.TenShip , p.SDTShip , p.GiaShip
+			  FROM HOADONCHITIET AS HDCT
+			LEFT JOIN HOADON AS HD ON HD.ID = HDCT.IdHoaDon
+			LEFT JOIN CHI_TIET_SAN_PHAM AS CTSP ON CTSP.ID = HDCT.IdCTSP
+			LEFT JOIN SANPHAM AS SP  ON SP.ID = CTSP.ID
+			LEFT JOIN DOT_GIAM_GIA AS DGG ON DGG.ID = CTSP.IdDGG
+			LEFT JOIN KHACHHANG AS KH ON KH.ID = HD.IdKH 
+            LEFT JOIN NHANVIEN AS NV ON NV.ID = HD.IdNV
+			LEFT JOIN PHIEU_GIAM_GIA AS PGG ON PGG.ID  = HD.IdPGG
+			LEFT JOIN SIZE AS S ON S.ID = CTSP.IdSize 
+			LEFT JOIN THUONGHIEU AS TH ON TH.ID = CTSP.IdThuongHieu  
+			LEFT JOIN MAU AS M ON M.ID = CTSP.IdMau 
+			LEFT JOIN PHIEUGIAOHANG AS P ON P.IdHoaDon = HD.ID
+			 
+			WHERE HD.MaHoaDon LIKE 'HD001' 'HD23-11-17010215'
+              ORDER BY HDCT.NgayTao DESC
+			  select * from HOADON
+
+			  SELECT * FROM PHIEUGIAOHANG
+
+
+			  SELECT * FROM HOADONCHITIET
+			  -----------
+			  SELECT CTSP.ID as ID , CTSP.MaCTSP as  MaCTSP , SP.ID AS IdSP , SP.TenSP AS TenSP , S.ID AS IdSize , S.TenSize AS TenSize,
+                    TH.ID AS IdTH , TH.TenThuongHieu AS TenThuongHieu , M.ID AS IdM , M.TenMau AS TenMau ,
+                     IdDGG , DGG.MaDGG AS MaDGG , DGG.Loai AS LoaiDGG , DGG.GiaTri AS GiaTriDGG , DGG.TrangThai AS TrangThaiDGG ,
+                     SoLuongTon, GiaNiemYet , GiaBan
+                    FROM CHI_TIET_SAN_PHAM AS CTSP
+                     JOIN SANPHAM AS SP ON CTSP.IdSP = SP.ID
+                     JOIN SIZE AS S ON CTSP.IdSize = S.ID
+                     JOIN THUONGHIEU AS TH ON CTSP.IdThuongHieu =TH.ID
+                     JOIN MAU AS M ON CTSP.IdMau = M.ID
+                     JOIN DOT_GIAM_GIA  AS DGG ON CTSP.IdDGG = DGG.ID
+					 WHERE CTSP.MaCTSP LIKE 'CTSP0002'
+			  -------
+			   SELECT CTSP.ID as ID , CTSP.MaCTSP as  MaCTSP ,
+                     IdDGG , DGG.MaDGG AS MaDGG , DGG.Loai AS LoaiDGG , DGG.GiaTri AS GiaTriDGG , DGG.TrangThai AS TrangThaiDGG ,
+                     SoLuongTon, GiaNiemYet , GiaBan
+                    FROM  DOT_GIAM_GIA  AS DGG
+					 JOIN CHI_TIET_SAN_PHAM AS CTSP ON CTSP.IdDGG = DGG.ID
+                     
+					 WHERE CTSP.MaCTSP LIKE 'CTSP0002'
+			  SELECT * FROM CHI_TIET_SAN_PHAM
+			  SELECT ID FROM HOADON WHERE MaHoaDon LIKE ''
+
+			  select HOADON.ID ,HOADON.MaHoaDon , CHI_TIET_SAN_PHAM.MaCTSP   from HOADONCHITIET
+			  join HOADON on HOADON.ID  = HOADONCHITIET.IdHoaDon
+			  join CHI_TIET_SAN_PHAM on CHI_TIET_SAN_PHAM.ID = HOADONCHITIET.IdCTSP
+			  
+			  where HOADONCHITIET.id =24
+
+			  SELECT * FROM HOADONCHITIET
+			  order by NgayTao desc
+
+			  select * from DOT_GIAM_GIA
+			   where HOADONCHITIET.id =12
+
+			  update DOT_GIAM_GIA
+			  set TrangThai =1
+			  where id =6;
+
+			  select * from HOADON
+			  select * from DOT_GIAM_GIA
+			  select * from CHI_TIET_SAN_PHAM
+			  UPDATE CHI_TIET_SAN_PHAM
+			  set IdDGG =  6
+			  where id =2
+
+			  SELECT * FROM HOADONCHITIET
+			  JOIN HOADON ON HOADON.ID = HOADONCHITIET.IdHoaDon
+			  WHERE HOADON.MaHoaDon LIKE 
+
+			  INSERT INTO HOADONCHITIET (IdHoaDon , IdCTSP , SoLuong , MaDGG , LoaiDGG , GiaTriDGG , QuyDoiDGGTT , GiaBan , DonGia) VALUES 
+			  (16 , 2 , 2 , 'DGG006' , 1 , 150000 , 150000 , ? , 1100000)
+
+--
+--CREATE TRIGGER trgAfterInsert_HOADONCHITIET
+--ON HOADONCHITIET
+--AFTER INSERT
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+
+--    UPDATE HOADONCHITIET
+--    SET GiaBan = IdCTSP.GiaNiemYet - INSERTED.QuyDoiDGGTT,
+--        ThanhTien = INSERTED.SoLuong * (IdCTSP.GiaNiemYet - INSERTED.QuyDoiDGGTT)
+--    FROM HOADONCHITIET
+--    INNER JOIN INSERTED ON HOADONCHITIET.ID = INSERTED.ID
+--    INNER JOIN CHI_TIET_SAN_PHAM IdCTSP ON HOADONCHITIET.IdCTSP = IdCTSP.ID;
+--END;
+
+--DROP TRIGGER trgAfterInsert_HOADONCHITIET;
+
+---
+SELECT HD.ID AS ID , HD.MaHoaDon AS MaHoaDon , hd.NgayThanhToan AS NgayThanhToan , 
+                   	HD.ThanhTien AS ThanhTien , HD.TrangThai AS TrangThai , 
+                   	HD.DiemDoi AS DiemDoi , HD.CapBac AS CapBac   FROM HOADON AS HD
+                    	JOIN KHACHHANG ON KHACHHANG.ID = HD.IdKH 
+                    	WHERE MaKhachHang = 'KH001'
+
+
+
+
+
+
+SELECT ID, IdNV , MaKhachHang , TenKhachHang  , SDT , GioiTinh , NgaySinh , Email , DiaChi , Diem , CapBac FROM KHACHHANG 
+                       WHERE GioiTinh = 1
+
+
+
+
+
+SELECT SoLuongTon FROM CHI_TIET_SAN_PHAM WHERE MaCTSP LIKE ''
+id,idHD , idCTSP , soLuong , maDGG , loại giảm giá, giá trị dgg , giá bán , giatriQD , don giá , thành tiền , 
+
+ INSERT INTO HOADONCHITIET ( id ,IdHoaDon , IdCTSP , SoLuong , MaDGG , LoaiDGG , GiaTriDGG , QuyDoiDGGTT , GiaBan , DonGia, ThanhTien) VALUES 
+			  (? , ? , ? , ? , ? , ? , ? , ? , ? , ? ,?)
+
+			  SELECT DGG.ID AS IdDGG , MaDGG , Loai , GiaTri, DGG.TrangThai AS TrangThaiDGG ,
+			  CTSP.ID AS IdDGG , MaCTSP ,GiaNiemYet , GiaBan 
+			  FROM CHI_TIET_SAN_PHAM AS CTSP
+			  JOIN DOT_GIAM_GIA AS DGG ON DGG.ID = CTSP.IdDGG ;
+			  WHERE CHI_TIET_SAN_PHAM.MaCTSP LIKE ''
+
+			  select * from HOADONCHITIET
+			  join HOADON on HOADON.ID = HOADONCHITIET.ID
+			  
+			  SELECT * FROM HOADON
+INSERT INTO HOADON ( IdNV, IdKH, MaHoaDon, CapBac, PhanTramGia, TienPhieuGiam, DiemDoi, PhuongThucTT, TienKhDua, TienKhChuyenKhoan, TienThua, ThanhTien, NgayThanhToan, TrangThai)
+VALUES 
+( 1, 1, 'HD001' , 0, NULL, NULL, NULL, 0, 1500000, NULL, NULL, 1500000, '2023-11-01T15:30:00', 1),
+
+	update CHI_TIET_SAN_PHAM
+	set GiaBan = GiaNiemYet
+	where id =15
+	DELETE HOADONCHITIET WHERE IdCTSP =0  and IdHoaDon = 0
+	select * from CHI_TIET_SAN_PHAM
+DROP TRIGGER trgAfterInsert_HOADONCHITIET;
+select * from KHACHHANG
+
+-- Trigger cho bảng HOADONCHITIET  + ĐÃ CHẠY
+-- CREATE TRIGGER trgAfterInsert_HOADONCHITIET
+ON HOADONCHITIET
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @IDPGG INT;
+    DECLARE @LoaiPhieu BIT;
+    DECLARE @GiaTri FLOAT;
+
+    -- Kiểm tra xem ChiTietSanPham có thuộc Phiếu Giảm Giá không
+    SELECT @IDPGG = p.ID, @LoaiPhieu = p.LoaiPhieu, @GiaTri = p.GiaTri
+    FROM INSERTED i
+    LEFT JOIN HOADON h ON i.IdHoaDon = h.ID
+    LEFT JOIN PHIEU_GIAM_GIA p ON h.IdPGG = p.ID;
+
+    IF @IDPGG IS NULL
+    BEGIN
+        -- Nếu không thuộc Phiếu Giảm Giá, set các cột như yêu cầu
+        UPDATE HOADONCHITIET
+        SET 
+            LoaiDGG = 0,
+            GiaTriDGG = 0,
+            QuyDoiDGGTT = 0.0,
+            GiaBan = 0.0,
+            DonGia = 0.0,
+            ThanhTien = 0.0,
+            TrangThai = 1
+        FROM HOADONCHITIET
+        INNER JOIN INSERTED ON HOADONCHITIET.ID = INSERTED.ID;
+    END
+    ELSE
+    BEGIN
+        -- Nếu thuộc Phiếu Giảm Giá, kiểm tra Loại Phiếu
+        IF @LoaiPhieu = 0
+        BEGIN
+            -- Loại Phiếu là %
+            UPDATE HOADONCHITIET
+            SET 
+                QuyDoiDGGTT = IdCTSP.GiaNiemYet - (IdCTSP.GiaNiemYet * (@GiaTri / 100)),
+                GiaBan = IdCTSP.GiaNiemYet - (IdCTSP.GiaNiemYet * (@GiaTri / 100)),
+                DonGia = IdCTSP.GiaNiemYet - (IdCTSP.GiaNiemYet * (@GiaTri / 100)),
+                ThanhTien = INSERTED.SoLuong * (IdCTSP.GiaNiemYet - (IdCTSP.GiaNiemYet * (@GiaTri / 100)))
+            FROM HOADONCHITIET
+            INNER JOIN INSERTED ON HOADONCHITIET.ID = INSERTED.ID
+            INNER JOIN CHI_TIET_SAN_PHAM IdCTSP ON HOADONCHITIET.IdCTSP = IdCTSP.ID;
+
+            -- Cập nhật GiaBan và SốLượngTon trong CHI_TIET_SAN_PHAM
+            UPDATE CHI_TIET_SAN_PHAM
+            SET 
+                GiaBan = IdCTSP.GiaNiemYet - (IdCTSP.GiaNiemYet * (@GiaTri / 100)),
+                SoLuongTon = IdCTSP.SoLuongTon - INSERTED.SoLuong
+            FROM CHI_TIET_SAN_PHAM
+            INNER JOIN INSERTED ON CHI_TIET_SAN_PHAM.ID = INSERTED.IdCTSP
+            INNER JOIN CHI_TIET_SAN_PHAM IdCTSP ON CHI_TIET_SAN_PHAM.ID = IdCTSP.ID;
+        END
+        ELSE
+        BEGIN
+            -- Loại Phiếu là VND
+            UPDATE HOADONCHITIET
+            SET 
+                QuyDoiDGGTT = @GiaTri,
+                GiaBan = IdCTSP.GiaNiemYet - @GiaTri,
+                DonGia = IdCTSP.GiaNiemYet - @GiaTri,
+                ThanhTien = INSERTED.SoLuong * (IdCTSP.GiaNiemYet - @GiaTri)
+            FROM HOADONCHITIET
+            INNER JOIN INSERTED ON HOADONCHITIET.ID = INSERTED.ID
+            INNER JOIN CHI_TIET_SAN_PHAM IdCTSP ON HOADONCHITIET.IdCTSP = IdCTSP.ID;
+
+            -- Cập nhật GiaBan và SốLượngTon trong CHI_TIET_SAN_PHAM
+            UPDATE CHI_TIET_SAN_PHAM
+            SET 
+                GiaBan = IdCTSP.GiaNiemYet - @GiaTri,
+                SoLuongTon = IdCTSP.SoLuongTon - INSERTED.SoLuong
+            FROM CHI_TIET_SAN_PHAM
+            INNER JOIN INSERTED ON CHI_TIET_SAN_PHAM.ID = INSERTED.IdCTSP
+            INNER JOIN CHI_TIET_SAN_PHAM IdCTSP ON CHI_TIET_SAN_PHAM.ID = IdCTSP.ID;
+        END
+    END;
+END;
+-------------------------------------------------------------------------------------------
+SELECT *  FROM HOADON AS HD
+JOIN PHIEUGIAOHANG  AS PGH ON PGH.IdHoaDon = HD.ID
+
+
+---------------------------------------------
+-- Bỏ
+-- Trigger cho bảng HOADONCHITIET
+--CREATE TRIGGER trgAfterInsert_HOADONCHITIET
